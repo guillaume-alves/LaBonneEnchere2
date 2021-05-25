@@ -78,7 +78,7 @@
             </c:url>"
             >Annuler</a>
         <input type="submit" value="Créer" class="sansLabel" />
-        <p class="${empty um.errors ? 'succes' : 'erreur'}">${um.result}</p>
+        <p class="${empty um.errors ? 'success' : 'error'}">${um.result}</p>
     </div>
 </form>
 </body>

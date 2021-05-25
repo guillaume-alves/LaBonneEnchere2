@@ -24,14 +24,13 @@
         Catégorie : ${article.getArticleCategory().getCategoryName()}
       </label>
       <label>
-        Meilleur offre : ${article.getArticleBid().getBidPrice()} points
-        				par ${article.getArticleBid().getBidUserId()}
+        Meilleur offre : ${article.getArticleEndPrice()} points
       </label>
       <label>
         Mise à prix : ${article.getArticleStartPrice()} points
       </label>
       <label>
-        Fin des enchères : ${article.getArticleBidEndDate()}
+        Fin de l'enchère : ${article.getArticleBidEndDate()}
       </label>
       <label>
         Retrait : ${article.getArticleUser().getUserStreet()},
@@ -41,11 +40,23 @@
       <label>
         Vendeur : ${article.getArticleUser().getUserNickname()}
       </label>
+      
+      <c:if test="${!empty sessionScope.sessionUser}">
+	      <form method="post" action="MakeBid">
+		      <label>
+		        Ma proposition :
+		        <input type="number" name="bidPrice" value="<c:out value="${article.articleEndPrice}"/>" >
+		        <input type="number" name="articleEndPrice" value="<c:out value="${article.articleEndPrice}"/>" >
+		        <span class="error">${am.errors['articleEndPrice']}</span>
+		      </label>
+		  <input class="hide" type="number" name="articleEndPrice" value="<c:out value="${article.articleEndPrice}"/>" >
+		  <input class="hide" type="text" name="articleId" value="<c:out value="${article.getArticleId()}"/>" readonly="readonly">
+	      <input class="hide" type="text" name="userId" value="<c:out value="${sessionScope.sessionUser.userId}"/>" readonly="readonly">
+	      <input type="submit" value="Enchérir" class="" />
+	      </form>
+	      <p class="${empty bm.errors ? 'success' : 'error'}">${bm.result}</p>
+      </c:if>
     </div>
-<%--        <input type="submit" value="Enregister" class="" />--%>
-<%--        <input type="submit" value="Annuler" class="" />--%>
-<%--      </div>--%>
-<%--    </form>--%>
   </section>
 </body>
 </html>

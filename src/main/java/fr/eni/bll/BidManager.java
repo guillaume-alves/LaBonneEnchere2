@@ -3,12 +3,15 @@ package fr.eni.bll;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import fr.eni.bo.Bid;
 import fr.eni.dao.DAOException;
 import fr.eni.dao.EnchereDAO;
-import fr.eni.bo.Bid;
 
 public final class BidManager {
-    private static final String FIELD_BID_PRICE  = "bidPrice";
+    private static final String FIELD_BID_PRICE  				= "bidPrice";
+    private static final String FIELD_ARTICLE_END_PRICE  		= "articleEndPrice";
+    private static final String FIELD_USER_ID	 				= "userId";
+    private static final String FIELD_ARTICLE_ID				= "articleId";
 
     private String result;
     
@@ -28,13 +31,19 @@ public final class BidManager {
         this.enchereDAO = enchereDAO;
     }
 
-	public Bid registerBid(HttpServletRequest request) throws Exception {
-		Integer bidPrice = Integer.parseInt(getFieldValue(request, FIELD_BID_PRICE));
+	public Bid insertBid(HttpServletRequest request) throws Exception {
+		Integer userId = Integer.valueOf(getFieldValue(request, FIELD_USER_ID));
+		Integer articleId = Integer.valueOf(getFieldValue(request, FIELD_ARTICLE_ID));
+		String bidPrice = getFieldValue(request, FIELD_BID_PRICE);
+		Integer bidPriceInt = null;
+		String articleEndPrice = getFieldValue(request, FIELD_ARTICLE_END_PRICE);
 
         Bid bid = new Bid();
         
         try {
-            processBidPrice(bidPrice, bid);
+        	bid.setBidUserId(userId);
+        	bid.setBidArticleId(articleId);
+            processBidPrice(bidPrice, bidPriceInt, articleEndPrice, bid);
             
             if (errors.isEmpty()) {
             	enchereDAO.insertBid(bid);
@@ -50,29 +59,36 @@ public final class BidManager {
         return bid;
     }
     
-    private void processBidPrice(Integer bidPrice, Bid bid) {
+    private void processBidPrice(String bidPrice, Integer bidPriceInt, String articleEndPrice, Bid bid) {
         try {
-            bidPriceValidation(bidPrice);
+            bidPriceInt = bidPriceValidation(bidPrice, articleEndPrice);
         } catch (FormValidationException e) {
             setError(FIELD_BID_PRICE, e.getMessage());
         }
-        bid.setBidPrice(bidPrice);
+        bid.setBidPrice(bidPriceInt);
     }
-    
-    private void bidPriceValidation(Integer bidPrice) throws FormValidationException {
-    	if (bidPrice == null) {
-    		throw new FormValidationException("Champ requis.");
-	        } else if (bidPrice <= 0) {
-	        	throw new FormValidationException("L'ench�re doit �tre sup�rieure � 0.");
-	        	}
-    }
+
+	private Integer bidPriceValidation(String bidPrice, String articleEndPrice) throws FormValidationException {
+    if (bidPrice == null) {
+            throw new FormValidationException("Required field.");
+    } else {
+    	Integer articleEndPriceInt = Integer.valueOf(articleEndPrice);
+    	Integer bidPriceInt = Integer.valueOf(bidPrice);
+    	if (bidPriceInt<=articleEndPriceInt) {
+    		throw new FormValidationException("Bid price must be superior to the actual price.");
+    	}
+    	else return bidPriceInt;
+    	}
+	}
 
     private void setError(String field, String message) {
         errors.put(field, message);
     }
 
     private static String getFieldValue (HttpServletRequest request, String field) {
-        String value = request.getParameter(field);
+ 	   String value = request.getParameter(field);
+ 	   if (value == null) {value = null;}
+ 	   else if (value.trim().compareTo("") == 0) {value = null;}
         return value;
     }
 }

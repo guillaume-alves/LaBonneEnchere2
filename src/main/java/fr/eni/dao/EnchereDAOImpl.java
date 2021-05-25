@@ -12,15 +12,15 @@ public class EnchereDAOImpl implements EnchereDAO {
 	
 	private static final String SQL_INSERT_USER 			= "INSERT INTO Users (user_nickname, user_name, user_firstname, user_email, user_phone, user_street, user_postal_code, user_city, user_password, user_credit, user_admin) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
     private static final String SQL_SELECT_USER_BY_EMAIL 	= "SELECT * FROM Users WHERE user_email = ?";
-    private static final String SQL_INSERT_BID 				= "INSERT INTO Bids (user_id, bid_start_date) VALUES (?, DATETIME())";
+    private static final String SQL_INSERT_BID 				= "INSERT INTO Bids (bid_user_id, bid_article_id, bid_date, bid_price) VALUES (?, ?, GETDATE(), ?)";
     private static final String SQL_SELECT_USER_BY_NICKNAME = "SELECT * FROM Users WHERE user_nickname = ?";
     private static final String SQL_INSERT_ARTICLE 			= "INSERT INTO Articles (article_name, article_description, article_start_date, article_end_date, article_start_price, article_end_price, article_user_id, article_category_id) VALUES (?,?,?,?,?,?,?,?)";
     private static final String SQL_SELECT_ALL_ARTICLES 	= "SELECT * FROM Articles INNER JOIN Users ON Articles.article_user_id = Users.user_id";
-    private static final String SQL_SELECT_ARTICLE_BY_ID 	= "SELECT * FROM Articles INNER JOIN Users ON Articles.article_user_id = Users.user_id INNER JOIN Bids ON Users.user_id = Bids.bid_user_id WHERE article_id=?";
     private static final String SQL_SELECT_USER_BY_ID 		= "SELECT * FROM Users WHERE (user_id=?)";
     private static final String SQL_SELECT_ALL_CATEGORIES 	= "SELECT * FROM Categories";
     private static final String SQL_DELETE_USER_BY_ID 		= "DELETE FROM Users WHERE user_Id = ?";
     private static final String SQL_UPDATE_USER 			= "UPDATE Users SET user_nickname=?, user_name=?, user_firstname=?, user_email=?, user_phone=?, user_street=?, user_postal_code=?, user_city=?, user_password=? WHERE user_id=?";
+    private static final String SQL_SELECT_ARTICLE_BY_ID 	= "SELECT * FROM Categories INNER JOIN Articles ON Categories.category_id = Articles.article_category_id INNER JOIN Users ON Articles.article_user_id = Users.user_id WHERE article_id=?";
     
     private DAOFactory daoFactory;
 
@@ -169,7 +169,7 @@ public class EnchereDAOImpl implements EnchereDAO {
         try {
         	// Getting connection from factory
             conn = daoFactory.getConnection();
-            preparedStatement = initPreparedStatement(conn, SQL_INSERT_BID);
+            preparedStatement = initPreparedStatement(conn, SQL_INSERT_BID, bid.getBidUserId(), bid.getBidArticleId(), bid.getBidPrice());
             int statut = preparedStatement.executeUpdate();
             // Analysing statut
             if (statut == 0) {
@@ -344,10 +344,10 @@ public class EnchereDAOImpl implements EnchereDAO {
 		user.setUserStreet(resultSet.getString("user_street"));
 		user.setUserPostalCode(resultSet.getString("user_postal_code"));
 		user.setUserCity(resultSet.getString("user_city"));
-		bid.setBidPrice(resultSet.getInt("bid_price"));
 		article.setArticleCategory(category);
 		article.setArticleUser(user);
-		article.setArticleBid(bid);
+		//bid.setBidPrice(resultSet.getInt("bid_price"));
+		//article.setArticleBid(bid);
         return article;
 	}
 	
