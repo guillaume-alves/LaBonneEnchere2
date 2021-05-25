@@ -1,0 +1,102 @@
+/* G�n�ral ------------------------------------------------------------------------------------- */
+
+body, p, legend, label, input {
+    font: normal 8pt verdana, helvetica, sans-serif;
+}
+
+fieldset {
+    padding: 10px;
+    border: 1px #0568CD solid;
+}
+
+legend {
+    font-weight: bold;
+    color: #0568CD;
+}
+
+body,
+.con_area{
+    display: grid;
+    grid-template-columns: 12fr;
+    grid-gap: 10px;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.flex_col_center{
+    display: flex;
+    flex-direction: column;
+    align-items : center;
+}
+
+.flex_row_center{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.research_zone{
+    display: flex;
+    flex-direction: column;
+}
+
+.article_area{
+    width: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.disabledButton{
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.quart{
+    width: 25%;
+}
+/* Forms --------------------------------------------------------------------------------------- */
+
+form label {
+    float: left;
+    width: 200px;
+    margin: 3px 0 0 0;
+}
+
+form input {
+    margin: 3px 3px 0 0;
+    border: 1px #999 solid;
+}
+
+form input.sansLabel {
+    margin-left: 200px;
+}
+
+p.success {
+    color: #090;
+}
+
+.success {
+    color: #090;
+}
+
+p.error {
+    color: #900;
+}
+
+span.error {
+    color: #900;
+}
+
+.hide{
+	display: none;
+}
+
+form .info {
+    font-style: italic;
+    color: #E8A22B;
+}
