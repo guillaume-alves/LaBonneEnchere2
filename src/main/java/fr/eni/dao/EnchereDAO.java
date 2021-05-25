@@ -21,7 +21,7 @@ public interface EnchereDAO {
 	
 	User getUserByNickname(String nickname) throws DAOException;
 	
-	Article getArticleById(Article article) throws DAOException;
+	Article getArticleById(Integer articleId) throws DAOException;
 
 	List<Article> getListArticles() throws DAOException;
 	

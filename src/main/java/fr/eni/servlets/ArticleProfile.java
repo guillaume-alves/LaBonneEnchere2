@@ -27,18 +27,16 @@ public class ArticleProfile extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher(VUE);
-        rd.forward(request, response);
+    	ArticleManager am = new ArticleManager(enchereDAO);
+        Article article = am.getArticleById(request);
+
+        request.setAttribute(ATT_AM, am);
+        request.setAttribute(ATT_ARTICLES, article);
+        this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ArticleManager am = new ArticleManager(enchereDAO);
-        Article article = am.getArticlebyId(request);
-
-        request.setAttribute(ATT_AM, am);
-        request.setAttribute(ATT_ARTICLES, article);
-        RequestDispatcher rd = request.getRequestDispatcher(VUE);
-        rd.forward(request, response);
+    	 this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
     }
 }

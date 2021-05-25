@@ -99,11 +99,10 @@ public final class ArticleManager {
         
     }
 	
-	public Article getArticlebyId(HttpServletRequest request) {
+	public Article getArticleById(HttpServletRequest request) {
 		Article article = new Article();
 	    Integer articleId = Integer.parseInt(getFieldValue(request, FIELD_ARTICLE_ID));
-	    article.setArticleId(articleId);
-	    article = enchereDAO.getArticleById(article);
+	    article = enchereDAO.getArticleById(articleId);
 	    return article;
 	}
 	

@@ -3,26 +3,10 @@ package fr.eni.bo;
 import java.sql.Timestamp;
 
 public class Bid {
-	private Integer		userId;
-	private Integer		bidId;
+	private Integer		bidUserId;
+	private Integer		bidArticleId;
 	private Integer		bidPrice;
 	private Timestamp	bidDate;
-	
-	public Integer getUserId() {
-		return userId;
-	}
-	
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
-	
-	public Integer getBidId() {
-		return bidId;
-	}
-	
-	public void setBidId(Integer bidId) {
-		this.bidId = bidId;
-	}
 	
 	public Timestamp getBidDate() {
 		return bidDate;
@@ -38,6 +22,22 @@ public class Bid {
 	
 	public void setBidPrice(Integer bidPrice) {
 		this.bidPrice = bidPrice;
+	}
+
+	public Integer getBidUserId() {
+		return bidUserId;
+	}
+
+	public void setBidUserId(Integer bidUserId) {
+		this.bidUserId = bidUserId;
+	}
+
+	public Integer getBidArticleId() {
+		return bidArticleId;
+	}
+
+	public void setBidArticleId(Integer bidArticleId) {
+		this.bidArticleId = bidArticleId;
 	}
 	
 

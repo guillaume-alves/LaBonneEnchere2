@@ -13,6 +13,8 @@ public class Article {
 	private Integer		articleUserId;
 	private Integer		articleCategoryId;
 	private User		articleUser;
+	private Category	articleCategory;
+	private Bid 		articleBid;
 
 	public Integer getArticleId() {
 		return articleId;
@@ -74,6 +76,18 @@ public class Article {
 	}
 	public void setArticleUser(User articleUser) {
 		this.articleUser = articleUser;
+	}
+	public Category getArticleCategory() {
+		return articleCategory;
+	}
+	public void setArticleCategory(Category articleCategory) {
+		this.articleCategory = articleCategory;
+	}
+	public Bid getArticleBid() {
+		return articleBid;
+	}
+	public void setArticleBid(Bid articleBid) {
+		this.articleBid = articleBid;
 	}
 
 	

@@ -1,8 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
-  <link type="text/css" rel="stylesheet" href="../inc/form.css">
+  <link type="text/css" rel="stylesheet" href="inc/form.css">
   <title>Title</title>
 </head>
 <body>
@@ -19,23 +20,26 @@
       <label>
         Description : ${article.getArticleDescription()}
       </label>
-      <label>
-        Meilleur offre : ${article.getArticleCurrentPrice()}
+       <label>
+        Catégorie : ${article.getArticleCategory().getCategoryName()}
       </label>
       <label>
-        Mise à prix : ${article.getArticleStartPrice()}
+        Meilleur offre : ${article.getArticleBid().getBidPrice()} points
+        				par ${article.getArticleBid().getBidUserId()}
       </label>
       <label>
-        Début des enchères : ${article.getArticleBidStartDate()}
+        Mise à prix : ${article.getArticleStartPrice()} points
       </label>
       <label>
         Fin des enchères : ${article.getArticleBidEndDate()}
       </label>
       <label>
-        Retrait : ${article.getArticleName()}
+        Retrait : ${article.getArticleUser().getUserStreet()},
+        		  ${article.getArticleUser().getUserPostalCode()}
+        		  ${article.getArticleUser().getUserCity()}
       </label>
       <label>
-        Vendeur : ${user.getUsername()}
+        Vendeur : ${article.getArticleUser().getUserNickname()}
       </label>
     </div>
 <%--        <input type="submit" value="Enregister" class="" />--%>

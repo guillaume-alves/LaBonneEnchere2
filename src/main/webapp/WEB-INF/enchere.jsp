@@ -9,7 +9,11 @@
     		</div>
     		
     		<div>
-      			<h2>${article.getArticleName()}</h2>
+      			<a href="
+						<c:url value="ArticleProfile">
+						<c:param name="articleId" value="${article.getArticleId()}"/>
+						</c:url>"
+					>${article.getArticleName()}</a>
       			<p>Prix : ${article.getArticleEndPrice()}</p>
       			<p>Fin de l'ench&egrave;re : ${article.getArticleBidEndDate()}</p>
      			<p>Vendeur :
