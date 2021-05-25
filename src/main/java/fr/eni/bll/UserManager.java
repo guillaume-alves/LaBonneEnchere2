@@ -448,7 +448,7 @@ public final class UserManager {
             passwordConfirmationValidationUpdate(password, confirmation);
         } catch (FormValidationException e) {
     	    setError(FIELD_USER_PASSWORD, e.getMessage());
-            setError(FIELD_USER_CONFIRMATION, null);
+            setError(FIELD_USER_CONFIRMATION, e.getMessage());
         }
         user.setUserPassword(password);
     }

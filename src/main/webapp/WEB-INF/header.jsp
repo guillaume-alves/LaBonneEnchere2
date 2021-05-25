@@ -28,8 +28,8 @@
 			>Deconnexion</a>
             
             <c:if test="${!empty sessionScope.sessionUser}">
-                <p class="success">You are connected with : ${sessionScope.sessionUser.userNickname}</p> 
-            	<p class="info">TOTAL points : ${sessionScope.sessionUser.userCredit}</p> 
+                <p class="success">Login : ${sessionScope.sessionUser.userNickname}</p> 
+            	<p class="info">Points : ${sessionScope.sessionUser.userCredit} pts</p> 
             </c:if>
             
             <c:if test="${!empty sessionScope.userMessage}">

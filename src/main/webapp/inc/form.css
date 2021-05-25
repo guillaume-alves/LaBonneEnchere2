@@ -1,7 +1,18 @@
-/* G�n�ral ------------------------------------------------------------------------------------- */
-
 body, p, legend, label, input {
-    font: normal 8pt verdana, helvetica, sans-serif;
+    font: normal 10pt verdana, helvetica, sans-serif;
+}
+
+h2 {
+	font: normal 16pt verdana, helvetica, sans-serif;
+	color: #0568CD;
+}
+
+a:link {
+  color: #0568CD;
+}
+
+a:visited {
+  color: #0568CD;
 }
 
 fieldset {
@@ -9,22 +20,30 @@ fieldset {
     border: 1px #0568CD solid;
 }
 
+label {
+  display: inline-block;
+  width: 140px;
+  text-align: left;
+  margin: 10px;
+}​
+
 legend {
     font-weight: bold;
     color: #0568CD;
-}
-
-body,
-.con_area{
-    display: grid;
-    grid-template-columns: 12fr;
-    grid-gap: 10px;
 }
 
 header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+input[type=submit] {
+    padding:5px 15px; 
+    background:#ccc; 
+    border:0 none;
+    cursor:pointer;
+    border-radius: 5px; 
 }
 
 .flex_col_center{
@@ -59,12 +78,11 @@ header {
 .quart{
     width: 25%;
 }
-/* Forms --------------------------------------------------------------------------------------- */
 
 form label {
     float: left;
     width: 200px;
-    margin: 3px 0 0 0;
+    marginrgb(128, 255, 128), 0, 255), 0, 255) 0 0;
 }
 
 form input {
@@ -85,7 +103,7 @@ p.success {
 }
 
 p.info {
-    color:#E8A22B;
+    color: #6a26c9;
 }
 
 p.error {

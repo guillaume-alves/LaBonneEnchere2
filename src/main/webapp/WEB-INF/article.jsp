@@ -13,43 +13,51 @@
       <img src="../image/pc.jpg" alt="image_bid">
     </div>
 <%--    <form method="post" action="" class="flex_col_center">--%>
-    <div class="flex_col_center">
-      <label>
-        Article : ${article.getArticleName()}
-      </label>
-      <label>
-        Description : ${article.getArticleDescription()}
-      </label>
-       <label>
-        Catégorie : ${article.getArticleCategory().getCategoryName()}
-      </label>
-      <label>
-        Meilleur offre : ${article.getArticleEndPrice()} points
-      </label>
-      <label>
-        Mise à prix : ${article.getArticleStartPrice()} points
-      </label>
-      <label>
-        Fin de l'enchère : ${article.getArticleBidEndDate()}
-      </label>
-      <label>
-        Retrait : ${article.getArticleUser().getUserStreet()},
-        		  ${article.getArticleUser().getUserPostalCode()}
-        		  ${article.getArticleUser().getUserCity()}
-      </label>
-      <label>
-        Vendeur : ${article.getArticleUser().getUserNickname()}
-      </label>
+    <div>
+      <label>Article :</label>
+      <input type="text" value="<c:out value="${article.getArticleName()}"/>" size="20" maxlength="60" disabled="disabled"/><br>
       
+      <label>Description :</label>
+      <input type="text" value="<c:out value="${article.getArticleDescription()}"/>" size="20" maxlength="60" disabled="disabled"/><br>
+      
+      <label>Catégorie :</label>
+      <input type="text" value="<c:out value="${article.getArticleCategory().getCategoryName()}"/>" size="20" maxlength="60" disabled="disabled"/><br>
+      
+      <label>Meilleur offre :</label>
+      <input type="text" value="<c:out value="${article.getArticleEndPrice()}"/> points" size="20" maxlength="60" disabled="disabled"/><br>
+      
+      <label>Mise à prix :</label>
+      <input type="text" value="<c:out value="${article.getArticleStartPrice()}"/> points" size="20" maxlength="60" disabled="disabled"/><br>
+      
+      <label>Fin de l'enchère :</label>
+      <input type="text" value="<c:out value="${article.getArticleBidEndDate()}"/>" size="20" maxlength="60" disabled="disabled"/><br>
+  
+      <fieldset>
+      <legend>Retrait</legend>
+      
+      <label>Rue :</label>
+      <input type="text" value="<c:out value="${article.getArticleUser().getUserStreet()}"/>" size="20" maxlength="60" disabled="disabled"/><br>
+      
+      <label>Code postal :</label>
+      <input type="text" value="<c:out value="${article.getArticleUser().getUserPostalCode()}"/>" size="20" maxlength="60" disabled="disabled"/><br>
+      
+      <label>Ville :</label>
+      <input type="text" value="<c:out value="${article.getArticleUser().getUserCity()}"/>" size="20" maxlength="60" disabled="disabled"/><br>
+     
+      </fieldset>
+      
+      <label>Vendeur :</label>
+      <input type="text" value="<c:out value="${article.getArticleUser().getUserNickname()}"/>" size="20" maxlength="60" disabled="disabled"/><br>
+      
+      <div>
       <c:choose>
       <c:when test="${article.getArticleUserId() != sessionScope.sessionUser.userId && article.getArticleBidEndDate() >= now}">
         <c:if test="${!empty sessionScope.sessionUser}">
 	      <form method="post" action="MakeBid">
-		      <label>
-		        Ma proposition :
-		        <input type="number" name="bidPrice" value="<c:out value="${article.articleEndPrice}"/>" >
-		        <span class="error">${am.errors['bidPrice']}</span>
-		      </label>
+		  <label>Ma proposition :</label>
+		  <input type="number" name="bidPrice" value="<c:out value="${article.articleEndPrice}"/>" ><br>
+		  <span class="error">${am.errors['bidPrice']}</span>
+		      
 		  <!-- user ID stored in session -->
 		  <input class="hide" type="text" name="userId" value="<c:out value="${sessionScope.sessionUser.userId}"/>" readonly="readonly">
 		  
@@ -77,6 +85,7 @@
       </c:otherwise>
     </c:choose>
     </div>
+   </div>
   </section>
 </body>
 </html>

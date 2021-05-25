@@ -353,7 +353,6 @@ public class EnchereDAOImpl implements EnchereDAO {
 		Article article = new Article();
 		Category category = new Category();
 		User user = new User();
-		Bid bid = new Bid();
 		article.setArticleId(resultSet.getInt("article_id"));
 		article.setArticleName(resultSet.getString("article_name"));
 		article.setArticleDescription(resultSet.getString("article_description"));
@@ -371,8 +370,6 @@ public class EnchereDAOImpl implements EnchereDAO {
 		user.setUserCity(resultSet.getString("user_city"));
 		article.setArticleCategory(category);
 		article.setArticleUser(user);
-		//bid.setBidPrice(resultSet.getInt("bid_price"));
-		//article.setArticleBid(bid);
         return article;
 	}
 	

@@ -52,10 +52,7 @@ public class UpdateProfile extends HttpServlet {
 			session.removeAttribute(ATT_USER_MESSAGE);
 			session.setAttribute(ATT_SESSION_USER, user);
 			session.setAttribute(ATT_USER_MESSAGE, um);
-			
-		} else {
-			//session.setAttribute(ATT_SESSION_USER, null);
-		}
+		} 
 		
         // Storage of BLL and the bean in the request
         request.setAttribute(ATT_UM, um);

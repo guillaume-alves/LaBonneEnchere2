@@ -96,6 +96,6 @@
         <jsp:param name="article" value="${list_articles}"/>
     </jsp:include>
 
-  <script src="../inc/script.js"></script>
+  <script src="inc/script.js"></script>
 </body>
 </html>
