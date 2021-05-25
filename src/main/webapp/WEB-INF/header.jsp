@@ -28,7 +28,11 @@
 			>Deconnexion</a>
             
             <c:if test="${!empty sessionScope.sessionUser}">
-                <p class="success">You are connected with : ${sessionScope.sessionUser.userNickname}</p>
+                <p class="success">You are connected with : ${sessionScope.sessionUser.userNickname}</p> 
+            </c:if>
+            
+            <c:if test="${!empty sessionScope.userMessage}">
+            	<p class="info">Message : ${sessionScope.userMessage.result}</p>
             </c:if>
         </nav>
     </c:otherwise>

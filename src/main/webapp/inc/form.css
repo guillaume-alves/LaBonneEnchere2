@@ -84,6 +84,10 @@ p.success {
     color: #090;
 }
 
+p.info {
+    color:#E8A22B;
+}
+
 p.error {
     color: #900;
 }
@@ -94,9 +98,4 @@ span.error {
 
 .hide{
 	display: none;
-}
-
-form .info {
-    font-style: italic;
-    color: #E8A22B;
 }

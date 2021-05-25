@@ -7,6 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import fr.eni.dao.DAOFactory;
 import fr.eni.dao.EnchereDAO;
 import fr.eni.bo.Article;
@@ -19,6 +21,7 @@ public class Sell extends HttpServlet {
 	public static final String CONF_DAO_FACTORY = "daofactory";
 	public static final String ATT_ARTICLE = "article";
 	public static final String ATT_LIST_CATEGORIES = "list_categories";
+	  public static final String ATT_USER_MESSAGE = "userMessage";
     public static final String ATT_AM = "am";
     public static 		String VUE = "";
     public static final String VUE_ACCUEIL = "/Accueil";
@@ -42,6 +45,7 @@ public class Sell extends HttpServlet {
   			e.printStackTrace();
   		}
   		if (am.getErrors().isEmpty()) {
+  			
   			VUE = VUE_ACCUEIL;
   		}
   		else {
@@ -67,9 +71,11 @@ public class Sell extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		System.out.println(am.getErrors());
+	
 		if (am.getErrors().isEmpty()) {
+			HttpSession session = request.getSession();
+			session.removeAttribute(ATT_USER_MESSAGE);
+			session.setAttribute(ATT_USER_MESSAGE, am);
 			VUE = VUE_ACCUEIL;
 		}
 		else {

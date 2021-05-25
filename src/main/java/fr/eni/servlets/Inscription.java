@@ -6,6 +6,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import fr.eni.dao.DAOFactory;
 import fr.eni.dao.EnchereDAO;
 import fr.eni.bo.User;
@@ -17,6 +19,7 @@ public class Inscription extends HttpServlet {
 	public static final String CONF_DAO_FACTORY = "daofactory";
 	public static final String ATT_USER = "user";
     public static final String ATT_UM = "um";
+    public static final String ATT_USER_MESSAGE = "userMessage";
     public static final String VUE_INSCRIPTION = "/WEB-INF/inscription.jsp";
     public static final String VUE_ACCUEIL = "/Accueil";
     public static 		String VUE = "";
@@ -44,6 +47,9 @@ public class Inscription extends HttpServlet {
 		}
 		
 		if (um.getErrors().isEmpty()) {
+			HttpSession session = request.getSession();
+			session.removeAttribute(ATT_USER_MESSAGE);
+			session.setAttribute(ATT_USER_MESSAGE, um);
 			VUE = VUE_ACCUEIL;
 		}
 		else {

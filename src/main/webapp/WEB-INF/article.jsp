@@ -46,8 +46,7 @@
 		      <label>
 		        Ma proposition :
 		        <input type="number" name="bidPrice" value="<c:out value="${article.articleEndPrice}"/>" >
-		        <input type="number" name="articleEndPrice" value="<c:out value="${article.articleEndPrice}"/>" >
-		        <span class="error">${am.errors['articleEndPrice']}</span>
+		        <span class="error">${am.errors['bidPrice']}</span>
 		      </label>
 		  <input class="hide" type="number" name="articleEndPrice" value="<c:out value="${article.articleEndPrice}"/>" >
 		  <input class="hide" type="text" name="articleId" value="<c:out value="${article.getArticleId()}"/>" readonly="readonly">

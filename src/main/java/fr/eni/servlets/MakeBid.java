@@ -6,6 +6,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import fr.eni.bll.BidManager;
 import fr.eni.bo.Bid;
 import fr.eni.dao.DAOFactory;
@@ -18,6 +20,7 @@ public class MakeBid extends HttpServlet {
 	public static final String ATT_BID = "bid";
     public static final String ATT_BM = "bm";
     public static final String VUE = "/Accueil";
+    public static final String ATT_USER_MESSAGE = "userMessage";
     
     private EnchereDAO enchereDAO;
 
@@ -41,7 +44,11 @@ public class MakeBid extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-        request.setAttribute(ATT_BM, bm);
+		HttpSession session = request.getSession();
+		session.removeAttribute(ATT_USER_MESSAGE);
+		session.setAttribute(ATT_USER_MESSAGE, bm);
+        
+		request.setAttribute(ATT_BM, bm);
         request.setAttribute(ATT_BID, bid);
 
         this.getServletContext().getRequestDispatcher(VUE).forward(request, response);

@@ -30,5 +30,7 @@ public interface EnchereDAO {
 	void deleteUser(Integer userId) throws DAOException;
 
 	void updateUser(Integer userId, User user);
+	
+	void updateArticleEndPrice(Article article);
 
 }

@@ -72,7 +72,7 @@ public final class UserManager {
 
             if (errors.isEmpty()) {
                 enchereDAO.insertUser(user);
-                result = "Registration succed.";
+                result = "Registration succeed.";
             } else {
                 result = "Registration failed.";
             }
