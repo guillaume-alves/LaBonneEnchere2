@@ -41,7 +41,9 @@
         Vendeur : ${article.getArticleUser().getUserNickname()}
       </label>
       
-      <c:if test="${!empty sessionScope.sessionUser}">
+      <c:choose>
+      <c:when test="${article.getArticleUserId() != sessionScope.sessionUser.userId && article.getArticleBidEndDate() >= now}">
+        <c:if test="${!empty sessionScope.sessionUser}">
 	      <form method="post" action="MakeBid">
 		      <label>
 		        Ma proposition :
@@ -63,7 +65,17 @@
 	      <input type="submit" value="Enchérir" class="" />
 	      </form>
 	      <p class="${empty bm.errors ? 'success' : 'error'}">${bm.result}</p>
-      </c:if>
+      	</c:if>
+      </c:when>
+      
+      <c:when test="${article.getArticleUserId() == sessionScope.sessionUser.userId && article.getArticleBidEndDate() >= now}">
+        <input type="submit" value="Modifier"/>
+      </c:when>
+      
+      <c:otherwise>
+        <input type="submit" value="Vente terminée"/>
+      </c:otherwise>
+    </c:choose>
     </div>
   </section>
 </body>

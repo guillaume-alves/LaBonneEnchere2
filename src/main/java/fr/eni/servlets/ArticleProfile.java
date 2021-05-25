@@ -8,6 +8,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.Date;
 
 @WebServlet("/ArticleProfile")
 public class ArticleProfile extends HttpServlet {
@@ -29,7 +30,9 @@ public class ArticleProfile extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	ArticleManager am = new ArticleManager(enchereDAO);
         Article article = am.getArticleById(request);
-
+        Date now = new Date();
+        
+        request.setAttribute("now", now);
         request.setAttribute(ATT_AM, am);
         request.setAttribute(ATT_ARTICLES, article);
         this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
