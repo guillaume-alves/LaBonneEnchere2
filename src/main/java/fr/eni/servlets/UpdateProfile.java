@@ -18,6 +18,7 @@ public class UpdateProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final String CONF_DAO_FACTORY = "daofactory";
 	public static final String ATT_USER = "user";
+	public static final String ATT_USER_MESSAGE = "userMessage";
     public static final String ATT_UM = "um";
     public static final String VUE = "/WEB-INF/myprofile.jsp";
     public static final String ATT_SESSION_USER = "sessionUser";
@@ -48,9 +49,12 @@ public class UpdateProfile extends HttpServlet {
 
 		if (um.getErrors().isEmpty()) {
 			session.removeAttribute(ATT_SESSION_USER);
+			session.removeAttribute(ATT_USER_MESSAGE);
 			session.setAttribute(ATT_SESSION_USER, user);
+			session.setAttribute(ATT_USER_MESSAGE, um);
+			
 		} else {
-			session.setAttribute(ATT_SESSION_USER, null);
+			//session.setAttribute(ATT_SESSION_USER, null);
 		}
 		
         // Storage of BLL and the bean in the request

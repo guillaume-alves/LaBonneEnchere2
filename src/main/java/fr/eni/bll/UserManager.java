@@ -155,12 +155,12 @@ public final class UserManager {
 
             if (errors.isEmpty()) {
                 enchereDAO.updateUser(userId, user);
-                result = "Update succeed.";
+                result = "Profile update succeed.";
             } else {
-                result = "Update failed.";
+                result = "Profile update failed.";
             }
         } catch (DAOException e) {
-            result = "Update failed !";
+            result = "Profile update failed !";
             e.printStackTrace();
 		}
 

@@ -20,6 +20,7 @@ public class EnchereDAOImpl implements EnchereDAO {
     private static final String SQL_SELECT_ALL_CATEGORIES 	 = "SELECT * FROM Categories";
     private static final String SQL_DELETE_USER_BY_ID 		 = "DELETE FROM Users WHERE user_Id = ?";
     private static final String SQL_UPDATE_USER 			 = "UPDATE Users SET user_nickname=?, user_name=?, user_firstname=?, user_email=?, user_phone=?, user_street=?, user_postal_code=?, user_city=?, user_password=? WHERE user_id=?";
+    private static final String SQL_UPDATE_USER_CREDIT 		 = "UPDATE Users SET user_credit=? WHERE user_id=?";
     private static final String SQL_UPDATE_ARTICLE_END_PRICE = "UPDATE Articles SET article_end_price=? WHERE article_id=?";
     private static final String SQL_SELECT_ARTICLE_BY_ID 	 = "SELECT * FROM Categories INNER JOIN Articles ON Categories.category_id = Articles.article_category_id INNER JOIN Users ON Articles.article_user_id = Users.user_id WHERE article_id=?";
     
@@ -138,7 +139,7 @@ public class EnchereDAOImpl implements EnchereDAO {
         	 silentClosing( preparedStatement, conn );
          }		
 	}
- // Interface EnchereDAO implementation
+    // Interface EnchereDAO implementation
     @Override
     public void updateUser(Integer userId, User user) throws DAOException {
         Connection conn = null;
@@ -149,6 +150,29 @@ public class EnchereDAOImpl implements EnchereDAO {
             // Getting connection from factory
             conn = daoFactory.getConnection();
             preparedStatement = initPreparedStatement(conn, SQL_UPDATE_USER, user.getUserNickname(), user.getUserName(), user.getUserFirstname(), user.getUserEmail(), user.getUserPhone(), user.getUserStreet(), user.getUserPostalCode(), user.getUserCity(), user.getUserPassword(), userId);
+            int statut = preparedStatement.executeUpdate();
+            // Analysing statut
+            if (statut == 0) {
+                throw new DAOException("Operation failed, no lign added." );
+            }
+        } catch (SQLException e) {
+            throw new DAOException (e);
+        } finally {
+        	silentClosing(resultSet, preparedStatement, conn);
+        }
+    }
+    
+ // Interface EnchereDAO implementation
+    @Override
+    public void updateUserCredit(Integer userId, User user) throws DAOException {
+        Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+            // Getting connection from factory
+            conn = daoFactory.getConnection();
+            preparedStatement = initPreparedStatement(conn, SQL_UPDATE_USER_CREDIT, user.getUserCredit(), userId);
             int statut = preparedStatement.executeUpdate();
             // Analysing statut
             if (statut == 0) {

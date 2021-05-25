@@ -48,9 +48,18 @@
 		        <input type="number" name="bidPrice" value="<c:out value="${article.articleEndPrice}"/>" >
 		        <span class="error">${am.errors['bidPrice']}</span>
 		      </label>
+		  <!-- user ID stored in session -->
+		  <input class="hide" type="text" name="userId" value="<c:out value="${sessionScope.sessionUser.userId}"/>" readonly="readonly">
+		  
+		  <!-- user credit stored in session -->
+		  <input class="hide" type="number" name="userCredit" value="<c:out value="${sessionScope.sessionUser.userCredit}"/>" >
+		  
+		  <!-- article current price -->
 		  <input class="hide" type="number" name="articleEndPrice" value="<c:out value="${article.articleEndPrice}"/>" >
+		  
+		  <!-- article ID -->
 		  <input class="hide" type="text" name="articleId" value="<c:out value="${article.getArticleId()}"/>" readonly="readonly">
-	      <input class="hide" type="text" name="userId" value="<c:out value="${sessionScope.sessionUser.userId}"/>" readonly="readonly">
+	      
 	      <input type="submit" value="Enchérir" class="" />
 	      </form>
 	      <p class="${empty bm.errors ? 'success' : 'error'}">${bm.result}</p>

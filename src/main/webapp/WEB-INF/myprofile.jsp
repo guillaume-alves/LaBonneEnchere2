@@ -17,9 +17,7 @@
   <form method="post" action="UpdateProfile">
   <div class="flex_row_center">
     <div class="flex_col_center quart">
-    
       <input class="hide" type="text" name="userId" value="<c:out value="${sessionScope.sessionUser.userId}"/>" readonly="readonly">
-      
       <label>
         Pseudo<br/>
         <input type="text" name="userNickname" value="<c:out value="${sessionScope.sessionUser.userNickname}"/>" size="20" maxlength="60" />
@@ -41,10 +39,10 @@
       	<span class="error">${um.errors['userPostalCode']}</span>
       </label>
       <label>
-        Nouveau mot de passe<br/>
+        Ancien ou nouveau mot de passe<br/>
         <input type="password" name="userPassword" value="<c:out value="${sessionScope.sessionUser.userCity}"/>" size="20" maxlength="20" />
         <span class="error">${um.errors['userPassword']}</span>
-      </label>
+      </label><br/>
     </div>
     <div class="flex_col_center quart">
       <label>
@@ -68,10 +66,10 @@
       	<span class="error">${um.errors['userCity']}</span>
       </label>
       <label>
-        Confirmation du nouveau mot de passe<br/>
+        Confirmation ancien ou nouveau mot de passe<br/>
         <input type="password" name="userConfirmation" value="" size="20" maxlength="20" />
         <span class="error">${um.errors['userConfirmation']}</span>
-      </label>
+      </label><br/>
     </div>
   </div>
   <input type="submit" value="Enregister" class="" />

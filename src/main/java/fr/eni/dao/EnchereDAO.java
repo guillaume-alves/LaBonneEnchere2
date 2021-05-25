@@ -31,6 +31,8 @@ public interface EnchereDAO {
 
 	void updateUser(Integer userId, User user);
 	
+	void updateUserCredit(Integer userId, User user);
+	
 	void updateArticleEndPrice(Article article);
 
 }
