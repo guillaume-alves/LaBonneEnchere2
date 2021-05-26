@@ -52,8 +52,7 @@
       </label>
     </div>
   </div>
-  
-  <div>
+  <div class="flex_col_center">
 	   <c:if test="${sessionScope.sessionUser.userId == user.userId}">
 	   	<a href="
 			<c:url value="MyProfile">
@@ -61,6 +60,6 @@
 			</c:url>"
 			>Modifier mon profil</a>
 	   </c:if>
-   </div>
+  </div>
 </body>
 </html>
