@@ -7,10 +7,23 @@
   <title>Title</title>
 </head>
 <body>
-  <h2 class="flex_col_center">Nouvelle Vente</h2>
+	
+	<jsp:include page="header.jsp">
+		<jsp:param name="title" value="ENI-Enchere"/>
+  	</jsp:include>
+
+<c:choose>
+	<c:when test="${article.getArticleBidEndDate() >= now}">
+		 <h2 class="flex_col_center">Détail Vente</h2>
+	</c:when>
+	<c:otherwise>
+		 <h2 class="flex_col_center"><c:out value="${bid.getBidUser().getUserNickname()}"/> a remporté la vente</h2>
+	</c:otherwise>
+</c:choose>
+ 
   <section class="flex_row_center">
     <div>
-      <img src="../image/pc.jpg" alt="image_bid">
+      <img src="inc/item.png" alt="image_bid">
     </div>
 <%--    <form method="post" action="" class="flex_col_center">--%>
     <div>
@@ -26,7 +39,11 @@
       <label>Meilleur offre :</label>
       <input type="text" value="<c:out value="${article.getArticleEndPrice()}"/> points" size="20" maxlength="60" readonly="readonly"/>
       <span>par</span>
-      <input type="text" value="<c:out value="${bid.getBidUser().getUserNickname()}"/>" size="20" maxlength="60" readonly="readonly"/><br>
+      <a href="
+      	<c:url value="Profile">
+		<c:param name="userId" value="${article.getArticleUserId()}"/>
+		</c:url>"
+		>${article.getArticleUser().getUserNickname()}</a> <br>
       
       <label>Mise à prix :</label>
       <input type="text" value="<c:out value="${article.getArticleStartPrice()}"/> points" size="20" maxlength="60" readonly="readonly"/><br>
@@ -66,6 +83,9 @@
 		  <!-- user credit stored in session -->
 		  <input class="hide" type="number" name="userCredit" value="<c:out value="${sessionScope.sessionUser.userCredit}"/>" readonly="readonly">
 		  
+		  <!-- userId of the current winning bidder -->
+		  <input class="hide" type="text" name="userOldId" value="<c:out value="${bid.getBidUser().getUserId()}"/>" size="20" maxlength="60" readonly="readonly"/><br>
+		  
 		  <!-- article current price -->
 		  <input class="hide" type="number" name="articleEndPrice" value="<c:out value="${article.articleEndPrice}"/>" readonly="readonly">
 		  
@@ -79,7 +99,11 @@
       </c:when>
       
       <c:when test="${article.getArticleUserId() == sessionScope.sessionUser.userId && article.getArticleBidEndDate() >= now}">
-        <input type="submit" value="Modifier"/>
+        <form method="get" action="CancelSell">
+	         <!-- article ID -->
+	        <input class="hide" type="text" name="articleId" value="<c:out value="${article.getArticleId()}"/>" readonly="readonly">
+	        <input type="submit" value="Annuler la vente"/>
+        </form> 
       </c:when>
       
       <c:otherwise>

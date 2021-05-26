@@ -72,12 +72,12 @@ public final class UserManager {
 
             if (errors.isEmpty()) {
                 enchereDAO.insertUser(user);
-                result = "Registration succeed.";
+                result = "Inscription : succès.";
             } else {
-                result = "Registration failed.";
+                result = "Inscription : échec.";
             }
         } catch (DAOException e) {
-            result = "Registration failed !";
+            result = "Inscription : échec !";
             e.printStackTrace();
 		}
 
@@ -98,12 +98,12 @@ public final class UserManager {
 			user = enchereDAO.getUserByNickname(nickname);
 		
 			if (errors.isEmpty()) {
-				result = "Connection succeed.";
+				result = "Connexion : succès.";
 			} else {
-				result = "Connection failed.";
+				result = "Connexion : échec.";
 		    }
 		} catch (DAOException e) {
-			result = "Connection failed !";
+			result = "Connexion : échec !";
             e.printStackTrace();
 		}
 
@@ -155,12 +155,12 @@ public final class UserManager {
 
             if (errors.isEmpty()) {
                 enchereDAO.updateUser(userId, user);
-                result = "Profile update succeed.";
+                result = "Profil mis à jour : succès.";
             } else {
-                result = "Profile update failed.";
+                result = "Profil mis à jour : échec.";
             }
         } catch (DAOException e) {
-            result = "Profile update failed !";
+            result = "Profil mis à jour : échec !";
             e.printStackTrace();
 		}
 
@@ -190,10 +190,10 @@ public final class UserManager {
 		if (enchereDAO.getUserByNickname(nickname) != null) {
 			if (enchereDAO.getUserByNickname(nickname).getUserPassword().equals(password)) {}
 			else {
-				throw new FormValidationException("Wrong nickname OR password.");
+				throw new FormValidationException("Pseudo ou mot de passe erroné.");
 			}
 		}
-		else throw new FormValidationException("Nickname not registered.");
+		else throw new FormValidationException("Pseudo non enregistré.");
 	}
 	
 	private void processNickname(String nickname, User user) throws Exception {
@@ -307,84 +307,84 @@ public final class UserManager {
    
    private void nameValidation(String name) throws FormValidationException {
        if (name == null) {
-           throw new FormValidationException("Name required.");
+           throw new FormValidationException("Nom requis.");
        }
    }
    
    private void firstnameValidation(String firstname) throws FormValidationException {
        if (firstname == null) {
-           throw new FormValidationException("Firstname required.");
+           throw new FormValidationException("Prénom requis.");
        }
    }
    
    private void nicknameValidation(String nickname) throws FormValidationException {
        if (nickname == null) {
-           throw new FormValidationException("Nickname required.");
+           throw new FormValidationException("Pseudo requis.");
        }
        else if (enchereDAO.getUserByNickname(nickname) != null) {
-    	   throw new FormValidationException("Nickname already used. Please choose another.");
+    	   throw new FormValidationException("Pseudo déjà utilisé, veuillez en choisir un autre.");
 	   }
    }
    
    private void nicknameValidationConnection(String nickname) throws FormValidationException {
        if (nickname == null) {
-           throw new FormValidationException("Nickname required.");
+           throw new FormValidationException("Pseudo requis.");
        }
    }
    
    private void emailValidation(String email) throws FormValidationException {
 	   if (email == null) {
-		   throw new FormValidationException("Email required.");
+		   throw new FormValidationException("Email requis.");
 	   }
 	   else if (!email.matches("^[\\w-.]+@([\\w-]+.)+[\\w-]{2,4}$")) {
 		   throw new FormValidationException("Invalid email format.");
 	   }
 	   else if (enchereDAO.getUserByEmail(email) != null) {
-	    	   throw new FormValidationException("Email already used. Please choose another.");
+	    	   throw new FormValidationException("Email déjà utilisé, veuillez en choisir un autre.");
 		   }
    }
    
    private void passwordConfirmationValidation(String password, String confirmation) throws FormValidationException {
 	   if (password != null && confirmation != null) {
 		   if (!password.equals(confirmation)) {
-               throw new FormValidationException("Passwords are differents !");
+               throw new FormValidationException("Mots de passe differents !");
 		   }
 	   }
    }
    
    private void passwordValidation(String password) throws FormValidationException {
 		if (password == null) {
-			throw new FormValidationException("Password required.");
+			throw new FormValidationException("Mot de passe requis.");
 		}
 	}
    
    private void confirmationValidation(String confirmation) throws FormValidationException {
 		if (confirmation == null) {
-			throw new FormValidationException("Confirmation required.");
+			throw new FormValidationException("Confirmation requise.");
 		}
 	}
       
    private void phoneValidation(String phone) throws FormValidationException {
 	    if (phone == null) {
-	            throw new FormValidationException("Telephone required.");
+	            throw new FormValidationException("Telephone requis.");
 	    }
    }
    
    private void streetValidation(String street) throws FormValidationException {
 	    if (street == null) {
-	            throw new FormValidationException("Street required.");
+	            throw new FormValidationException("Rue requise.");
 	    }
    }
    
    private void postalCodeValidation(String postalCode) throws FormValidationException {
 	    if (postalCode == null) {
-	            throw new FormValidationException("Postalcode required.");
+	            throw new FormValidationException("Code postal requis.");
 	    }
    }
    
    private void cityValidation(String city) throws FormValidationException {
 	    if (city == null) {
-	            throw new FormValidationException("City required.");
+	            throw new FormValidationException("Ville requise.");
 	    }
    }
    
@@ -493,31 +493,31 @@ public final class UserManager {
    
    private void nameValidationUpdate(String name) throws FormValidationException {
        if (name == null) {
-           throw new FormValidationException("Name required.");
+           throw new FormValidationException("Nom requis.");
        }
    }
    
    private void firstnameValidationUpdate(String firstname) throws FormValidationException {
        if (firstname == null) {
-           throw new FormValidationException("Firstname required.");
+           throw new FormValidationException("Prénom requis.");
        }
    }
    
    private void nicknameValidationUpdate(String nickname, User userOld) throws FormValidationException {
        if (nickname == null) {
-           throw new FormValidationException("Nickname required.");
+           throw new FormValidationException("Pseudo requis.");
        }
        else if (enchereDAO.getUserByNickname(nickname) != null) {
     	   if (nickname.equals(userOld.getUserNickname())) {}
     	   else {
-    	   throw new FormValidationException("Nickname already used. Please choose another.");
+    	   throw new FormValidationException("Pseudo déjà utilisé, veuillez en choisir un autre.");
     	   }
        }
    }
    
    private void emailValidationUpdate(String email, User userOld) throws FormValidationException {
 	   if (email == null) {
-		   throw new FormValidationException("Email required.");
+		   throw new FormValidationException("Email requis.");
 	   }
 	   else if (!email.matches("^[\\w-.]+@([\\w-]+.)+[\\w-]{2,4}$")) {
 		   throw new FormValidationException("Invalid email format.");
@@ -525,7 +525,7 @@ public final class UserManager {
 	   else if (enchereDAO.getUserByNickname(email) != null) {
     	   if (email.equals(userOld.getUserNickname())) {}
     	   else {
-    	   throw new FormValidationException("Nickname already used. Please choose another.");
+    	   throw new FormValidationException("Pseudo déjà utilisé, veuillez en choisir un autre.");
     	   }
 	   }
    }
@@ -533,44 +533,44 @@ public final class UserManager {
    private void passwordConfirmationValidationUpdate(String password, String confirmation) throws FormValidationException {
 	   if (password != null && confirmation != null) {
 		   if (!password.equals(confirmation)) {
-               throw new FormValidationException("Passwords are differents !");
+               throw new FormValidationException("Mots de passe différents !");
 		   }
 	   }
    }
    
    private void passwordValidationUpdate(String password) throws FormValidationException {
 		if (password == null) {
-			throw new FormValidationException("Password required.");
+			throw new FormValidationException("Mot de passe requis.");
 		}
 	}
    
    private void confirmationValidationUpdate(String confirmation) throws FormValidationException {
 		if (confirmation == null) {
-			throw new FormValidationException("Confirmation required.");
+			throw new FormValidationException("Confirmation requise.");
 		}
 	}
       
    private void phoneValidationUpdate(String phone) throws FormValidationException {
 	    if (phone == null) {
-	            throw new FormValidationException("Telephone required.");
+	            throw new FormValidationException("Telephone requis.");
 	    }
    }
    
    private void streetValidationUpdate(String street) throws FormValidationException {
 	    if (street == null) {
-	            throw new FormValidationException("Street required.");
+	            throw new FormValidationException("Rue requise.");
 	    }
    }
    
    private void postalCodeValidationUpdate(String postalCode) throws FormValidationException {
 	    if (postalCode == null) {
-	            throw new FormValidationException("Postalcode required.");
+	            throw new FormValidationException("Code postal requis.");
 	    }
    }
    
    private void cityValidationUpdate(String city) throws FormValidationException {
 	    if (city == null) {
-	            throw new FormValidationException("City required.");
+	            throw new FormValidationException("Ville requise.");
 	    }
    }
     

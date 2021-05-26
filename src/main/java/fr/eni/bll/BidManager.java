@@ -14,6 +14,7 @@ public final class BidManager {
     private static final String FIELD_BID_PRICE  				= "bidPrice";
     private static final String FIELD_ARTICLE_END_PRICE  		= "articleEndPrice";
     private static final String FIELD_USER_ID	 				= "userId";
+    private static final String FIELD_USER_OLD_ID	 			= "userOldId";
     private static final String FIELD_ARTICLE_ID				= "articleId";
     private static final String FIELD_USER_CREDIT				= "userCredit";
 
@@ -43,8 +44,19 @@ public final class BidManager {
     }
 
 	public Bid insertBid(HttpServletRequest request) throws Exception {
+		User user = new User();
+		User userOld = null;
+		Article article = new Article();
+        Bid bid = new Bid();
+        
 		Integer userCredit 			= Integer.valueOf(getFieldValue(request, FIELD_USER_CREDIT));
 		Integer userId 				= Integer.valueOf(getFieldValue(request, FIELD_USER_ID));
+		
+		if (getFieldValue(request, FIELD_USER_OLD_ID)!=null) {
+			Integer userOldId 		= Integer.valueOf(getFieldValue(request, FIELD_USER_OLD_ID));
+			userOld = enchereDAO.getUserById(userOldId);
+		}
+		
 		Integer articleId 			= Integer.valueOf(getFieldValue(request, FIELD_ARTICLE_ID));
 		String bidPrice 			= getFieldValue(request, FIELD_BID_PRICE);
 		Integer bidPriceInt 		= null;
@@ -52,9 +64,7 @@ public final class BidManager {
 		String articleEndPrice 		= getFieldValue(request, FIELD_ARTICLE_END_PRICE);
 		Integer articleEndPriceInt 	= null;
 		
-		User user = new User();
-		Article article = new Article();
-        Bid bid = new Bid();
+		
         
         try {
         	bid.setBidUserId(userId);
@@ -62,16 +72,21 @@ public final class BidManager {
         	article.setArticleId(articleId);
             processBidPrice(bidPrice, bidPriceInt, articleEndPrice, articleEndPriceInt, bid, article);
             processUserCredit(bidPrice, bidPriceInt, userCredit, user, articleEndPrice, articleEndPriceInt);
+            if (userOld != null) {
+            	processUserCredit2(userOld, articleEndPrice, articleEndPriceInt);
+            	enchereDAO.updateUserCredit(userOld.getUserId(), userOld);
+            }
+            
             if (errors.isEmpty()) {
             	enchereDAO.insertBid(bid);
             	enchereDAO.updateArticleEndPrice(article);
             	enchereDAO.updateUserCredit(userId, user);
-                result = "Making bid succeed.";
+                result = "Enchère sur un article : succès.";
             } else {
-                result = "Making bid failed.";
+                result = "Enchère sur un article : échec.";
             }
         } catch (DAOException e) {
-            result = "Making bid failed !";
+            result = "Echec de l'enchère !";
             e.printStackTrace();
 		}
 
@@ -94,19 +109,29 @@ public final class BidManager {
         	articleEndPriceInt = articleEndPriceValidation(articleEndPrice);
             bidPriceInt = bidPriceValidation(bidPrice, articleEndPriceInt);
         	userCredit = userCreditValidation(userCredit, bidPriceInt);
+        	
         } catch (FormValidationException e) {
             setError(FIELD_BID_PRICE, e.getMessage());
         }
         user.setUserCredit(userCredit);
     }
     
+    private void processUserCredit2(User userOld,String articleEndPrice, Integer articleEndPriceInt) {
+        try {
+        	articleEndPriceInt = articleEndPriceValidation(articleEndPrice);
+        } catch (FormValidationException e) {
+            setError(FIELD_BID_PRICE, e.getMessage());
+        }
+        userOld.setUserCredit(userOld.getUserCredit()+articleEndPriceInt);
+    }
+    
     private Integer bidPriceValidation(String bidPrice, Integer articleEndPriceInt) throws FormValidationException {
     if (bidPrice == null) {
-            throw new FormValidationException("Required field.");
+            throw new FormValidationException("Champ requis.");
     } else {
     	Integer bidPriceInt = Integer.valueOf(bidPrice);
     	if (bidPriceInt<=articleEndPriceInt) {
-    		throw new FormValidationException("Bid price must be superior to the actual price.");
+    		throw new FormValidationException("Votre enchère doit être supérieure au prix actuel.");
     	}
     	else return bidPriceInt;
     	}
@@ -114,7 +139,7 @@ public final class BidManager {
 	
 	private Integer articleEndPriceValidation(String articleEndPrice) throws FormValidationException {
 	    if (articleEndPrice == null) {
-	            throw new FormValidationException("Required field.");
+	            throw new FormValidationException("Champ requis.");
 	    } else {
 	    	Integer articleEndPriceInt = Integer.valueOf(articleEndPrice);
 	    	return articleEndPriceInt;
@@ -123,7 +148,7 @@ public final class BidManager {
 	
 	private Integer userCreditValidation(Integer userCredit, Integer bidPriceInt) throws FormValidationException {
 		if (userCredit == 0 || userCredit<bidPriceInt) {
-	            throw new FormValidationException("Not enough points to make bid.");
+	            throw new FormValidationException("Vous n'avez pas assez de points pour enchérir.");
 	    } else {
 	    	userCredit = userCredit-bidPriceInt;
 	    	return userCredit;
@@ -138,6 +163,6 @@ public final class BidManager {
  	   String value = request.getParameter(field);
  	   if (value == null) {value = null;}
  	   else if (value.trim().compareTo("") == 0) {value = null;}
-        return value;
+       return value;
     }
 }

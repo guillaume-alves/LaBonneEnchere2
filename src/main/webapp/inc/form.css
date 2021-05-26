@@ -126,6 +126,10 @@ span.error {
     color: #900;
 }
 
+.required {
+    color: #900;
+}
+
 .hide{
 	display: none;
 }
