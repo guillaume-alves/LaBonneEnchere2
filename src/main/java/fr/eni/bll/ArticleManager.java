@@ -22,6 +22,7 @@ public final class ArticleManager {
     private static final String FIELD_ARTICLE_END_PRICE  		= "articleEndPrice";
     private static final String FIELD_ARTICLE_USER_ID		  	= "articleUserId";
     private static final String FIELD_ARTICLE_CATEGORY_ID  		= "articleCategoryId";
+    private static final String FIELD_USER_OLD_ID	 			= "userOldId";
     
     private String result;
     private EnchereDAO enchereDAO;
@@ -88,10 +89,18 @@ public final class ArticleManager {
         return article;
     }
 	
+	@SuppressWarnings("unused")
 	public void deleteArticle(HttpServletRequest request) {
+		
 	     Integer articleId = Integer.parseInt(getFieldValue(request, FIELD_ARTICLE_ID));
-	     enchereDAO.deleteArticle(articleId);
-	 }
+	     if (getFieldValue(request, FIELD_USER_OLD_ID)!=null) {
+	    	 Integer userOldId = Integer.valueOf(getFieldValue(request, FIELD_USER_OLD_ID));
+	    	 enchereDAO.deleteBidsOfArticle(articleId);
+	    	 enchereDAO.deleteArticle(articleId);
+	     } else {
+	    	 enchereDAO.deleteArticle(articleId);
+	     }
+	}
 	
 	public List<Article> getListArticles() {
     	list_articles = enchereDAO.getListArticles();
@@ -248,6 +257,7 @@ public final class ArticleManager {
 	   String value = request.getParameter(field);
 	   if (value == null) {value = null;}
 	   else if (value.trim().compareTo("") == 0) {value = null;}
-       return value;
+	   return value;
+       
    }
 }

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Title</title>
+    <title>ENI-ENCHERE</title>
   	<link type="text/css" rel="stylesheet" href="inc/form.css" />
 </head>
 <body>
@@ -12,12 +12,12 @@
   </jsp:include>
 
   <h2 class="flex_col_center">Nouvelle Vente</h2>
-  <section class="flex_col_center">
-    <div>
-      <img src="" alt="image_bid">
+  <section class="flex_row_center">
+    <div class="flex_col_center">
+      <img src="inc/item.png" alt="image_bid">
     </div>
     
-    <div class="">
+    <div class="flex_col_center">
     <form method="post" action="Sell">
       <label> Article : </label>
       <input type="text" name="articleName" value="<c:out value="${article.articleName}"/>" size="20" maxlength="60">
@@ -66,10 +66,12 @@
       	<!-- Seller Id -->
 	    <input class="hide" type="text" name="articleUserId" value="<c:out value="${sessionScope.sessionUser.userId}"/>" readonly="readonly"><br>
         <input type="submit" value="Enregister" class="" />
-        <input type="submit" value="Annuler" class="" />
       </div>
-      
    </form>
+   	  <a class="flex_col_center" href="
+	  	<c:url value="Accueil">
+		</c:url>"
+		>Annuler</a>
    </div>
   </section>
 </body>

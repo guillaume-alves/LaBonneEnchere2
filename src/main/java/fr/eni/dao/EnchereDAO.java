@@ -31,6 +31,8 @@ public interface EnchereDAO {
 
 	void deleteArticle(Integer articleId) throws DAOException;
 	
+	void deleteBidsOfArticle(Integer articleId) throws DAOException;
+	
 	void updateUser(Integer userId, User user) throws DAOException;;
 	
 	void updateUserCredit(Integer userId, User user) throws DAOException;;

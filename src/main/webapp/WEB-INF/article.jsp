@@ -4,7 +4,7 @@
 <html>
 <head>
   <link type="text/css" rel="stylesheet" href="inc/form.css">
-  <title>Title</title>
+  <title>ENI-ENCHERE</title>
 </head>
 <body>
 	
@@ -36,14 +36,16 @@
       <label>Catégorie :</label>
       <input type="text" value="<c:out value="${article.getArticleCategory().getCategoryName()}"/>" size="20" maxlength="60" readonly="readonly"/><br>
       
+      <c:if test="${!empty bid.getBidUser().getUserId()}">
       <label>Meilleur offre :</label>
       <input type="text" value="<c:out value="${article.getArticleEndPrice()}"/> points" size="20" maxlength="60" readonly="readonly"/>
       <span>par</span>
       <a href="
       	<c:url value="Profile">
-		<c:param name="userId" value="${article.getArticleUserId()}"/>
+		<c:param name="userId" value="${bid.getBidUser().getUserId()}"/>
 		</c:url>"
-		>${article.getArticleUser().getUserNickname()}</a> <br>
+		>${bid.getBidUser().getUserNickname()}</a> <br>
+	  </c:if>
       
       <label>Mise à prix :</label>
       <input type="text" value="<c:out value="${article.getArticleStartPrice()}"/> points" size="20" maxlength="60" readonly="readonly"/><br>
@@ -100,8 +102,12 @@
       
       <c:when test="${article.getArticleUserId() == sessionScope.sessionUser.userId && article.getArticleBidEndDate() >= now}">
         <form method="get" action="CancelSell">
-	         <!-- article ID -->
+	        <!-- article ID -->
 	        <input class="hide" type="text" name="articleId" value="<c:out value="${article.getArticleId()}"/>" readonly="readonly">
+	        
+	        <!-- userId of the current winning bidder -->
+		  	<input class="hide" type="text" name="userOldId" value="<c:out value="${bid.getBidUser().getUserId()}"/>" size="20" maxlength="60" readonly="readonly"/><br>
+	        
 	        <input type="submit" value="Annuler la vente"/>
         </form> 
       </c:when>

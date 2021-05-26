@@ -144,7 +144,7 @@ public class EnchereDAOImpl implements EnchereDAO {
 	}
     
     @Override
-	public void deleteArticle(Integer articleId) throws DAOException {
+	public void deleteBidsOfArticle(Integer articleId) throws DAOException {
     	 Connection conn = null;
          PreparedStatement preparedStatement = null;
 
@@ -152,28 +152,33 @@ public class EnchereDAOImpl implements EnchereDAO {
         	 conn = daoFactory.getConnection();
              preparedStatement = initPreparedStatement(conn, SQL_DELETE_BIDS_BY_ID, articleId);
              int statut = preparedStatement.executeUpdate();
-             if ( statut == 0 ) {
+             if (statut == 0) {
                  throw new DAOException("Operation failed, no lign deleted.");
              }
-         } catch ( SQLException e ) {
-             throw new DAOException( e );
+         } catch (SQLException e) {
+             throw new DAOException(e);
          } finally {
-        	 silentClosing( preparedStatement, conn );
+        	 silentClosing(preparedStatement, conn);
          }
+    }
+
+    @Override
+    public void deleteArticle(Integer articleId) throws DAOException {
+      	 Connection conn = null;
+         PreparedStatement preparedStatement = null;
          
          try {
         	 conn = daoFactory.getConnection();
              preparedStatement = initPreparedStatement(conn, SQL_DELETE_ARTICLE_BY_ID, articleId);
              int statut = preparedStatement.executeUpdate();
-             if ( statut == 0 ) {
+             if (statut == 0) {
                  throw new DAOException("Operation failed, no lign deleted.");
              }
-         } catch ( SQLException e ) {
-             throw new DAOException( e );
+         } catch (SQLException e) {
+             throw new DAOException (e);
          } finally {
         	 silentClosing( preparedStatement, conn );
          }
-         
 	}
     
     // Interface EnchereDAO implementation
