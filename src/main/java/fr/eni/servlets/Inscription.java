@@ -42,12 +42,18 @@ public class Inscription extends HttpServlet {
         User user = null;
 		try {
 			user = um.registerUser(request);
-			user = um.connectUser(request);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		if (um.getErrors().isEmpty()) {
+			try {
+				user = um.connectUser(request);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			HttpSession session = request.getSession();
 			session.setAttribute(ATT_SESSION_USER, user);
 			session.removeAttribute(ATT_USER_MESSAGE);
@@ -55,13 +61,11 @@ public class Inscription extends HttpServlet {
 			VUE = VUE_ACCUEIL;
 		}
 		else {
+			request.setAttribute(ATT_UM, um);
+			request.setAttribute(ATT_USER, user);
 			VUE = VUE_INSCRIPTION;
 		}
 		
-        // Storage of BLL and the bean in the request
-        request.setAttribute(ATT_UM, um);
-        request.setAttribute(ATT_USER, user);
-
         this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
     }
 }

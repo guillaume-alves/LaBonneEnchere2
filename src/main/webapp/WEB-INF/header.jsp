@@ -2,7 +2,7 @@
 
 <header>
     <a href="${pageContext.request.contextPath}/Accueil" class="title"><h1><%=request.getParameter("title")%></h1></a>
-
+	
 <c:choose>
     <c:when test="${empty sessionScope.sessionUser}">
         <nav class="nav-bar">
