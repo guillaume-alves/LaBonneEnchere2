@@ -5,11 +5,11 @@
 	<c:forEach var="article" items="${list_articles}">
 		<article class="article_area">
     		<div>
-      			<img src="../image/pc.jpg" alt="pc" width="200"/>
+      			<img class="image" src="inc/item.png" alt="pc" width="200"/>
     		</div>
     		
     		<div>
-      			<a href="
+      			<a class="article_title" href="
 						<c:url value="ArticleProfile">
 						<c:param name="articleId" value="${article.getArticleId()}"/>
 						</c:url>"

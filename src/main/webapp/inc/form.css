@@ -1,4 +1,4 @@
-body, p, legend, label, input {
+body, p, a, legend, label, input {
     font: normal 10pt verdana, helvetica, sans-serif;
 }
 
@@ -9,6 +9,10 @@ h2 {
 
 a:link {
   color: #0568CD;
+}
+
+a.article_title {
+	font : normal 12pt verdana, helvetica, sans-serif;
 }
 
 a:visited {
@@ -24,7 +28,7 @@ label {
 	display: inline-block;
   	width: 200px;
   	text-align: left;
-  	margin: 10px;
+  	margin: 5px;
 }​
 
 legend {
@@ -70,6 +74,11 @@ input[type=submit] {
 .research_zone{
     display: flex;
     flex-direction: column;
+}
+
+.image {
+  height: 120px;
+  width: auto;
 }
 
 .article_area{

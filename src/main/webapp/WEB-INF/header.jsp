@@ -33,12 +33,16 @@
             </c:if>
             
             <c:if test="${!empty sessionScope.userMessage}">
+            
+            	<details>
+            	<summary>Messages</summary>
             	<p class="info">Message : ${sessionScope.userMessage.result}</p>
             	<p class="info">Details : ${sessionScope.userMessage.getErrors()}</p>
             	<form method="get" action="CleanMessages">
             		<input class="hide" name="userId" value="${sessionScope.sessionUser.userId}" class="" />
             		<input type="submit" value="Clean messages and refresh points" class="" />
             	</form>
+            	</details>
             </c:if>
         </nav>
     </c:otherwise>
