@@ -14,14 +14,14 @@ import fr.eni.dao.EnchereDAO;
 
 @WebServlet("/Connexion")
 public class Connexion extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID 	= 1L;
 	public static final String CONF_DAO_FACTORY = "daofactory";
-	public static final String ATT_USER = "user";
-	public static final String ATT_UM = "um";
+	public static final String ATT_USER 		= "user";
+	public static final String ATT_UM 			= "um";
 	public static final String ATT_SESSION_USER = "sessionUser";
-	public static String VUE = "";
-	public static final String VUE_ACCUEIL = "/Accueil";
-	public static final String VUE_CONNEXION = "/WEB-INF/connexion.jsp";
+	public static String VUE 					= "";
+	public static final String VUE_ACCUEIL 		= "/Accueil";
+	public static final String VUE_CONNEXION 	= "/WEB-INF/connexion.jsp";
 	
 	private EnchereDAO enchereDAO;
 

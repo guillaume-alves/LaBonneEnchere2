@@ -14,11 +14,11 @@ import java.io.IOException;
 @WebServlet("/CleanMessages")
 public class CleanMessages extends HttpServlet {
     
-	private static final long serialVersionUID = 1L;
-    public static final String  URL_REDIRECTION = "/LaBonneEnchere2/Accueil";
-    public static final String 	ATT_USER_MESSAGE = "userMessage";
-    public static final String  CONF_DAO_FACTORY = "daofactory";
-    public static final String  ATT_SESSION_USER = "sessionUser";
+	private static final long serialVersionUID 		= 1L;
+    public static final String  URL_REDIRECTION 	= "/LaBonneEnchere2/Accueil";
+    public static final String 	ATT_USER_MESSAGE 	= "userMessage";
+    public static final String  CONF_DAO_FACTORY 	= "daofactory";
+    public static final String  ATT_SESSION_USER 	= "sessionUser";
 	private EnchereDAO enchereDAO;
 
     public void init() throws ServletException {

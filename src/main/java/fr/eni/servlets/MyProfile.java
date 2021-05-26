@@ -12,11 +12,11 @@ import java.io.IOException;
 @WebServlet(name = "MyProfile", value = "/MyProfile")
 public class MyProfile extends HttpServlet {
     
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID 	= 1L;
 	public static final String CONF_DAO_FACTORY = "daofactory";
-	public static final String ATT_USER = "user";
-    public static final String ATT_UM = "um";
-    public static final String VUE = "/WEB-INF/myprofile.jsp";
+	public static final String ATT_USER 		= "user";
+    public static final String ATT_UM 			= "um";
+    public static final String VUE 				= "/WEB-INF/myprofile.jsp";
     
     private EnchereDAO enchereDAO;
 

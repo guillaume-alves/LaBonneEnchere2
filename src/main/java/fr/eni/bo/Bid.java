@@ -7,6 +7,7 @@ public class Bid {
 	private Integer		bidArticleId;
 	private Integer		bidPrice;
 	private Timestamp	bidDate;
+	private User		bidUser;
 	
 	public Timestamp getBidDate() {
 		return bidDate;
@@ -39,6 +40,13 @@ public class Bid {
 	public void setBidArticleId(Integer bidArticleId) {
 		this.bidArticleId = bidArticleId;
 	}
-	
 
+	public User getBidUser() {
+		return bidUser;
+	}
+
+	public void setBidUser(User user) {
+		this.bidUser = user;
+	}
+	
 }

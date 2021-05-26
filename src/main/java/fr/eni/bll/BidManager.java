@@ -34,6 +34,13 @@ public final class BidManager {
     public BidManager(EnchereDAO enchereDAO) {
         this.enchereDAO = enchereDAO;
     }
+    
+    public Bid getBidByArticleId(HttpServletRequest request) {
+    	Integer articleId = Integer.parseInt(getFieldValue(request, FIELD_ARTICLE_ID));
+    	Bid bid = new Bid();
+	    bid = enchereDAO.getBidByArticleId(articleId);
+	    return bid;
+    }
 
 	public Bid insertBid(HttpServletRequest request) throws Exception {
 		Integer userCredit 			= Integer.valueOf(getFieldValue(request, FIELD_USER_CREDIT));

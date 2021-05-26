@@ -17,15 +17,15 @@ import fr.eni.bll.ArticleManager;
 
 @WebServlet("/Sell")
 public class Sell extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	public static final String CONF_DAO_FACTORY = "daofactory";
-	public static final String ATT_ARTICLE = "article";
-	public static final String ATT_LIST_CATEGORIES = "list_categories";
-	  public static final String ATT_USER_MESSAGE = "userMessage";
-    public static final String ATT_AM = "am";
-    public static 		String VUE = "";
-    public static final String VUE_ACCUEIL = "/Accueil";
-    public static final String VUE_CREATE_ARTICLE = "/WEB-INF/sell.jsp";
+	private static final long serialVersionUID 		= 1L;
+	public static final String CONF_DAO_FACTORY 	= "daofactory";
+	public static final String ATT_ARTICLE 			= "article";
+	public static final String ATT_LIST_CATEGORIES 	= "list_categories";
+	public static final String ATT_USER_MESSAGE 	= "userMessage";
+    public static final String ATT_AM 				= "am";
+    public static 		String VUE 					= "";
+    public static final String VUE_ACCUEIL 			= "/Accueil";
+    public static final String VUE_CREATE_ARTICLE 	= "/WEB-INF/sell.jsp";
     
     private EnchereDAO enchereDAO;
 

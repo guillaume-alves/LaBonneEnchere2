@@ -23,6 +23,7 @@ public class EnchereDAOImpl implements EnchereDAO {
     private static final String SQL_UPDATE_USER_CREDIT 		 = "UPDATE Users SET user_credit=? WHERE user_id=?";
     private static final String SQL_UPDATE_ARTICLE_END_PRICE = "UPDATE Articles SET article_end_price=? WHERE article_id=?";
     private static final String SQL_SELECT_ARTICLE_BY_ID 	 = "SELECT * FROM Categories INNER JOIN Articles ON Categories.category_id = Articles.article_category_id INNER JOIN Users ON Articles.article_user_id = Users.user_id WHERE article_id=?";
+    private static final String SQL_SELECT_BID_BY_ARTICLE_ID = "SELECT TOP 1 * FROM Bids INNER JOIN Users ON Bids.bid_user_id = Users.user_id WHERE bid_article_id=? ORDER BY Bids.bid_price DESC";
     
     private DAOFactory daoFactory;
 
@@ -403,5 +404,43 @@ public class EnchereDAOImpl implements EnchereDAO {
         	silentClosing(resultSet, preparedStatement, conn);
         }
     }
+	
+	@Override
+	public Bid getBidByArticleId(Integer articleId) throws DAOException {
+		Connection conn = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        Bid bid = new Bid();
+
+        try {
+            // Getting connection from Factory
+            conn = daoFactory.getConnection();
+            preparedStatement = initPreparedStatement(conn, SQL_SELECT_BID_BY_ARTICLE_ID, articleId);
+            resultSet = preparedStatement.executeQuery();
+           // Request reading
+            while (resultSet.next()) {
+            	bid = fetchBid(resultSet);
+            }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        } finally {
+            silentClosing(resultSet, preparedStatement, conn);
+        }
+        return bid;
+    }
+	
+	//Method linked to the previous method getBidByArticleId()
+	private static Bid fetchBid(ResultSet resultSet) throws SQLException {
+		Bid bid = new Bid();
+		User user = new User();
+		bid.setBidUserId(resultSet.getInt("bid_user_id"));
+		bid.setBidArticleId(resultSet.getInt("bid_article_id"));
+		bid.setBidPrice(resultSet.getInt("bid_price"));
+		bid.setBidDate(resultSet.getTimestamp("bid_date"));
+		user.setUserId(resultSet.getInt("user_id"));
+		user.setUserNickname(resultSet.getString("user_nickname"));
+		bid.setBidUser(user);
+		return bid;
+	}
 	
 }
