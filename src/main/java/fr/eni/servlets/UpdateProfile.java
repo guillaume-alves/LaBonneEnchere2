@@ -15,12 +15,12 @@ import fr.eni.bll.UserManager;
 
 @WebServlet("/UpdateProfile")
 public class UpdateProfile extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID 	= 1L;
 	public static final String CONF_DAO_FACTORY = "daofactory";
-	public static final String ATT_USER = "user";
+	public static final String ATT_USER 		= "user";
 	public static final String ATT_USER_MESSAGE = "userMessage";
-    public static final String ATT_UM = "um";
-    public static final String VUE = "/WEB-INF/myprofile.jsp";
+    public static final String ATT_UM 			= "um";
+    public static final String VUE 				= "/WEB-INF/myprofile.jsp";
     public static final String ATT_SESSION_USER = "sessionUser";
     
     private EnchereDAO enchereDAO;
@@ -37,7 +37,6 @@ public class UpdateProfile extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         // Getting BLL instance
         UserManager um = new UserManager(enchereDAO);
-
         User user = null;
 		try {
 			user = um.updateUser(request);

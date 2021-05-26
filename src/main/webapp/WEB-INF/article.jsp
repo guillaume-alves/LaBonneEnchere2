@@ -15,39 +15,41 @@
 <%--    <form method="post" action="" class="flex_col_center">--%>
     <div>
       <label>Article :</label>
-      <input type="text" value="<c:out value="${article.getArticleName()}"/>" size="20" maxlength="60" disabled="disabled"/><br>
+      <input type="text" value="<c:out value="${article.getArticleName()}"/>" size="20" maxlength="60" readonly="readonly"/><br>
       
       <label>Description :</label>
-      <input type="text" value="<c:out value="${article.getArticleDescription()}"/>" size="20" maxlength="60" disabled="disabled"/><br>
+      <textarea rows="4" cols="30"><c:out value="${article.getArticleDescription()}"/></textarea><br>
       
       <label>Catégorie :</label>
-      <input type="text" value="<c:out value="${article.getArticleCategory().getCategoryName()}"/>" size="20" maxlength="60" disabled="disabled"/><br>
+      <input type="text" value="<c:out value="${article.getArticleCategory().getCategoryName()}"/>" size="20" maxlength="60" readonly="readonly"/><br>
       
       <label>Meilleur offre :</label>
-      <input type="text" value="<c:out value="${article.getArticleEndPrice()}"/> points" size="20" maxlength="60" disabled="disabled"/><br>
+      <input type="text" value="<c:out value="${article.getArticleEndPrice()}"/> points" size="20" maxlength="60" readonly="readonly"/>
+      <span>par</span>
+      <input type="text" value="<c:out value="${bid.getBidUser().getUserNickname()}"/>" size="20" maxlength="60" readonly="readonly"/><br>
       
       <label>Mise à prix :</label>
-      <input type="text" value="<c:out value="${article.getArticleStartPrice()}"/> points" size="20" maxlength="60" disabled="disabled"/><br>
+      <input type="text" value="<c:out value="${article.getArticleStartPrice()}"/> points" size="20" maxlength="60" readonly="readonly"/><br>
       
       <label>Fin de l'enchère :</label>
-      <input type="text" value="<c:out value="${article.getArticleBidEndDate()}"/>" size="20" maxlength="60" disabled="disabled"/><br>
+      <input type="text" value="<c:out value="${article.getArticleBidEndDate()}"/>" size="20" maxlength="60" readonly="readonly"/><br>
   
       <fieldset>
       <legend>Retrait</legend>
       
       <label>Rue :</label>
-      <input type="text" value="<c:out value="${article.getArticleUser().getUserStreet()}"/>" size="20" maxlength="60" disabled="disabled"/><br>
+      <input type="text" value="<c:out value="${article.getArticleUser().getUserStreet()}"/>" size="20" maxlength="60" readonly="readonly"/><br>
       
       <label>Code postal :</label>
-      <input type="text" value="<c:out value="${article.getArticleUser().getUserPostalCode()}"/>" size="20" maxlength="60" disabled="disabled"/><br>
+      <input type="text" value="<c:out value="${article.getArticleUser().getUserPostalCode()}"/>" size="20" maxlength="60" readonly="readonly"/><br>
       
       <label>Ville :</label>
-      <input type="text" value="<c:out value="${article.getArticleUser().getUserCity()}"/>" size="20" maxlength="60" disabled="disabled"/><br>
+      <input type="text" value="<c:out value="${article.getArticleUser().getUserCity()}"/>" size="20" maxlength="60" readonly="readonly"/><br>
      
       </fieldset>
       
       <label>Vendeur :</label>
-      <input type="text" value="<c:out value="${article.getArticleUser().getUserNickname()}"/>" size="20" maxlength="60" disabled="disabled"/><br>
+      <input type="text" value="<c:out value="${article.getArticleUser().getUserNickname()}"/>" size="20" maxlength="60" readonly="readonly"/><br>
       
       <div>
       <c:choose>
@@ -62,10 +64,10 @@
 		  <input class="hide" type="text" name="userId" value="<c:out value="${sessionScope.sessionUser.userId}"/>" readonly="readonly">
 		  
 		  <!-- user credit stored in session -->
-		  <input class="hide" type="number" name="userCredit" value="<c:out value="${sessionScope.sessionUser.userCredit}"/>" >
+		  <input class="hide" type="number" name="userCredit" value="<c:out value="${sessionScope.sessionUser.userCredit}"/>" readonly="readonly">
 		  
 		  <!-- article current price -->
-		  <input class="hide" type="number" name="articleEndPrice" value="<c:out value="${article.articleEndPrice}"/>" >
+		  <input class="hide" type="number" name="articleEndPrice" value="<c:out value="${article.articleEndPrice}"/>" readonly="readonly">
 		  
 		  <!-- article ID -->
 		  <input class="hide" type="text" name="articleId" value="<c:out value="${article.getArticleId()}"/>" readonly="readonly">

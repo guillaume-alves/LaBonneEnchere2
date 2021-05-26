@@ -15,11 +15,11 @@ import fr.eni.dao.EnchereDAO;
 
 @WebServlet("/MakeBid")
 public class MakeBid extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID 	= 1L;
 	public static final String CONF_DAO_FACTORY = "daofactory";
-	public static final String ATT_BID = "bid";
-    public static final String ATT_BM = "bm";
-    public static final String VUE = "/Accueil";
+	public static final String ATT_BID 			= "bid";
+    public static final String ATT_BM 			= "bm";
+    public static final String VUE 				= "/Accueil";
     public static final String ATT_USER_MESSAGE = "userMessage";
     
     private EnchereDAO enchereDAO;

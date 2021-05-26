@@ -11,11 +11,11 @@ import java.io.IOException;
 @WebServlet("/Suppression")
 public class Suppression extends HttpServlet {
     
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID 	= 1L;
 	public static final String CONF_DAO_FACTORY = "daofactory";
-	public static final String ATT_USER = "user";
-    public static final String ATT_UM = "um";
-    public static final String VUE = "/Deconnexion";
+	public static final String ATT_USER 		= "user";
+    public static final String ATT_UM 			= "um";
+    public static final String VUE 				= "/Deconnexion";
     
     private EnchereDAO enchereDAO;
 

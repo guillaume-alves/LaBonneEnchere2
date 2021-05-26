@@ -12,19 +12,19 @@
   </jsp:include>
 
   <h2 class="flex_col_center">Nouvelle Vente</h2>
-  <section class="flex_row_center">
+  <section>
     <div>
       <img src="" alt="image_bid">
     </div>
     
-    <div>
+    <div class="">
     <form method="post" action="Sell">
       <label> Article : </label>
-      <input type="text" name="articleName" value="<c:out value="${article.articleName}"/>" >
+      <input type="text" name="articleName" value="<c:out value="${article.articleName}"/>" size="20" maxlength="60">
       <span class="error">${am.errors['articleName']}</span><br>
      
       <label>Description :</label>
-      <textarea name="articleDescription" rows="4" cols="50"><c:out value="${article.articleDescription}"/></textarea>
+      <textarea name="articleDescription" rows="4" cols="30"><c:out value="${article.articleDescription}"/></textarea>
       <span class="error">${am.errors['articleDescription']}</span><br>
       
 	  <label for="category">Catégorie :</label>
@@ -38,15 +38,15 @@
       <button>Uploader</button><br>
 
       <label>Mise à prix : </label>
-      <input type="number" name="articleStartPrice" value="<c:out value="${article.articleStartPrice}"/>" >
+      <input type="number" name="articleStartPrice" value="<c:out value="${article.articleStartPrice}"/>" size="20" maxlength="60">
       <span class="error">${am.errors['articleStartPrice']}</span><br>
           
       <label>Début des enchères :</label>
-      <input type="date" name="articleBidStartDate" value="<c:out value="${article.articleBidStartDate}"/>" >
+      <input type="date" name="articleBidStartDate" value="<c:out value="${article.articleBidStartDate}"/>" size="20" maxlength="60">
       <span class="error">${am.errors['articleBidStartDate']}</span> <br>
       
       <label>Fin des enchères :</label>
-	  <input type="date" name="articleBidEndDate" value="<c:out value="${article.articleBidEndDate}"/>" >
+	  <input type="date" name="articleBidEndDate" value="<c:out value="${article.articleBidEndDate}"/>" size="20" maxlength="60">
       <span class="error">${am.errors['articleBidEndDate']}</span><br>
 
       <fieldset>

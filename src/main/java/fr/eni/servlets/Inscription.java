@@ -15,14 +15,15 @@ import fr.eni.bll.UserManager;
 
 @WebServlet("/Inscription")
 public class Inscription extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID 	= 1L;
 	public static final String CONF_DAO_FACTORY = "daofactory";
-	public static final String ATT_USER = "user";
-    public static final String ATT_UM = "um";
+	public static final String ATT_USER 		= "user";
+    public static final String ATT_UM			= "um";
     public static final String ATT_USER_MESSAGE = "userMessage";
-    public static final String VUE_INSCRIPTION = "/WEB-INF/inscription.jsp";
-    public static final String VUE_ACCUEIL = "/Accueil";
-    public static 		String VUE = "";
+    public static final String ATT_SESSION_USER = "sessionUser";
+    public static final String VUE_INSCRIPTION 	= "/WEB-INF/inscription.jsp";
+    public static final String VUE_ACCUEIL 		= "/Accueil";
+    public static 		String VUE 				= "";
     
     private EnchereDAO enchereDAO;
 
@@ -38,16 +39,17 @@ public class Inscription extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         // Getting BLL instance
         UserManager um = new UserManager(enchereDAO);
-
         User user = null;
 		try {
 			user = um.registerUser(request);
+			user = um.connectUser(request);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		if (um.getErrors().isEmpty()) {
 			HttpSession session = request.getSession();
+			session.setAttribute(ATT_SESSION_USER, user);
 			session.removeAttribute(ATT_USER_MESSAGE);
 			session.setAttribute(ATT_USER_MESSAGE, um);
 			VUE = VUE_ACCUEIL;
