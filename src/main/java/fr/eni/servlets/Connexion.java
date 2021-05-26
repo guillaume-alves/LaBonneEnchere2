@@ -37,7 +37,6 @@ public class Connexion extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		UserManager um = new UserManager(enchereDAO);
-
 		User user = null;
 		try {
 			user = um.connectUser(request);

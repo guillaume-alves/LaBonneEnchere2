@@ -12,45 +12,26 @@
   <jsp:param name="title" value="ENI-Enchere"/>
 </jsp:include>
 
-<form method="post" action="Connexion" class="flex_col_center">
-  <div class="flex_col_center">
-    <label>
-      Pseudo
-      <input type="text" name="userNickname" value="<c:out value="${user.userNickname}"/>" size="20" maxlength="20" /><br>
-   	  <span class="error">${um.errors['userNickname']}</span>
-    </label><br>
-  </div>
-  
-  <div class="flex_col_center">
-    <label>
-      Mot de passe
-      <input type="password" name="userPassword" value="" size="20" maxlength="20" /><br>
-      <span class="error">${um.errors['userPassword']}</span>
-    </label><br>
-  </div>
-  
-  <div class="search">
-    <div class="">
-      <input type="submit" value="Connexion"/>
-    </div>
-    <div class="flex_col_center">
-      <div class="search">
-        <label>
-          <input type="checkbox">
-          Se souvenir de moi
-        </label>
-      </div>
-      <div>
-        <a href="">Mot de passe oublié</a>
-      </div>
-    </div>
-  </div>
+<div class="flex_col_center">
+<form method="post" action="Connexion">
+    <label>Pseudo :</label>
+    <input type="text" name="userNickname" value="<c:out value="${user.userNickname}"/>" size="20" maxlength="20" /><br>
+   	<span class="error">${um.errors['userNickname']}</span><br>
 
+    <label>Mot de passe :</label>
+    <input type="password" name="userPassword" value="" size="20" maxlength="20" /><br>
+    <span class="error">${um.errors['userPassword']}</span><br>
+  
+	<input type="submit" value="Connexion"/>
+   
 <span class="error">${um.errors['connection']}</span>
 <p class="${empty um.errors ? 'success' : 'error'}">${um.result}</p>
 </form>
 
-<a href="${pageContext.request.contextPath}/Inscription" class="flex_col_center">Créer un compte</a>
-
+	<a href="
+		<c:url value="Inscription">
+		</c:url>"
+		>Créer un compte</a>
+</div>
 </body>
 </html>

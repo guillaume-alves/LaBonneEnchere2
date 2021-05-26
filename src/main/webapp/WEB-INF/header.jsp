@@ -6,7 +6,10 @@
 <c:choose>
     <c:when test="${empty sessionScope.sessionUser}">
         <nav class="nav-bar">
-            <a href="${pageContext.request.contextPath}/Connexion">S'inscrire - Se Connecter</a>
+            <a href="
+            <c:url value="Connexion">
+            </c:url>"
+            >S'inscrire - Se Connecter</a>
         </nav>
     </c:when>
     <c:otherwise>

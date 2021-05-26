@@ -12,7 +12,15 @@
 		<jsp:param name="title" value="ENI-Enchere"/>
   	</jsp:include>
 
-  <h2 class="flex_col_center">Nouvelle Vente</h2>
+<c:choose>
+	<c:when test="${article.getArticleBidEndDate() >= now}">
+		 <h2 class="flex_col_center">Détail Vente</h2>
+	</c:when>
+	<c:otherwise>
+		 <h2 class="flex_col_center"><c:out value="${bid.getBidUser().getUserNickname()}"/> a remporté la vente</h2>
+	</c:otherwise>
+</c:choose>
+ 
   <section class="flex_row_center">
     <div>
       <img src="../image/pc.jpg" alt="image_bid">
