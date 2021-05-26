@@ -7,6 +7,11 @@
   <title>Title</title>
 </head>
 <body>
+	
+	<jsp:include page="header.jsp">
+		<jsp:param name="title" value="ENI-Enchere"/>
+  	</jsp:include>
+
   <h2 class="flex_col_center">Nouvelle Vente</h2>
   <section class="flex_row_center">
     <div>
@@ -65,6 +70,9 @@
 		  
 		  <!-- user credit stored in session -->
 		  <input class="hide" type="number" name="userCredit" value="<c:out value="${sessionScope.sessionUser.userCredit}"/>" readonly="readonly">
+		  
+		  <!-- userId of the current winning bidder -->
+		  <input class="hide" type="text" name="userOldId" value="<c:out value="${bid.getBidUser().getUserId()}"/>" size="20" maxlength="60" readonly="readonly"/><br>
 		  
 		  <!-- article current price -->
 		  <input class="hide" type="number" name="articleEndPrice" value="<c:out value="${article.articleEndPrice}"/>" readonly="readonly">

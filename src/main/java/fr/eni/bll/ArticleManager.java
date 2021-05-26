@@ -76,12 +76,12 @@ public final class ArticleManager {
             
             if (errors.isEmpty()) {
             	enchereDAO.insertArticle(article);
-                result = "Adding article succed.";
+                result = "Ajout d'article : succès.";
             } else {
-                result = "Adding article failed.";
+                result = "Ajout d'article : échec.";
             }
         } catch (DAOException e) {
-            result = "registerArticle failed. !";
+            result = "Ajout d'article : échec !";
             e.printStackTrace();
 		}
 

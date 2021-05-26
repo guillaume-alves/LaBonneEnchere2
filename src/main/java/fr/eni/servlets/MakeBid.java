@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.bll.BidManager;
+import fr.eni.bll.UserManager;
 import fr.eni.bo.Bid;
+import fr.eni.bo.User;
 import fr.eni.dao.DAOFactory;
 import fr.eni.dao.EnchereDAO;
 
@@ -21,6 +23,7 @@ public class MakeBid extends HttpServlet {
     public static final String ATT_BM 			= "bm";
     public static final String VUE 				= "/Accueil";
     public static final String ATT_USER_MESSAGE = "userMessage";
+    public static final String ATT_SESSION_USER = "sessionUser";
     
     private EnchereDAO enchereDAO;
 
@@ -36,9 +39,12 @@ public class MakeBid extends HttpServlet {
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         // Getting InscriptionManager instance
         BidManager bm = new BidManager(enchereDAO);
+        UserManager um = new UserManager(enchereDAO);
+        User user = null;
         Bid bid = null;
 		try {
 			bid = bm.insertBid(request);
+			user = um.getUserById(request);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -46,7 +52,9 @@ public class MakeBid extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		session.removeAttribute(ATT_USER_MESSAGE);
+		session.removeAttribute(ATT_SESSION_USER);
 		session.setAttribute(ATT_USER_MESSAGE, bm);
+		session.setAttribute(ATT_SESSION_USER, user);
         
 		request.setAttribute(ATT_BM, bm);
         request.setAttribute(ATT_BID, bid);
