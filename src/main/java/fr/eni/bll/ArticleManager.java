@@ -257,7 +257,6 @@ public final class ArticleManager {
 	   String value = request.getParameter(field);
 	   if (value == null) {value = null;}
 	   else if (value.trim().compareTo("") == 0) {value = null;}
-	   System.out.println(value);
 	   return value;
        
    }
