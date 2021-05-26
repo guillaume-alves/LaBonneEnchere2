@@ -4,7 +4,7 @@
 <html>
 <head>
     <link type="text/css" rel="stylesheet" href="inc/form.css">
-    <title>Title</title>
+    <title>ENI-ENCHERE</title>
 </head>
 <body>
 
@@ -89,8 +89,9 @@
                   </div>
                   </c:if>
               </div>
-
-              <input type="submit" value="Rechercher"/>
+			  <div>
+              	<input type="submit" value="Rechercher"/>
+              </div>
           </form>
       </section>
 

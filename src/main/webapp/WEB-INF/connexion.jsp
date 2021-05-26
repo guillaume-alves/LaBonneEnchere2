@@ -4,7 +4,7 @@
 <html>
 <head>
   <link type="text/css" rel="stylesheet" href="inc/form.css">
-  <title>Title</title>
+  <title>ENI-ENCHERE</title>
 </head>
 <body>
 
