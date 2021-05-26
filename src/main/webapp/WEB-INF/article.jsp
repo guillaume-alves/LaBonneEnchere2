@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -44,7 +44,7 @@
       	<c:url value="Profile">
 		<c:param name="userId" value="${bid.getBidUser().getUserId()}"/>
 		</c:url>"
-		>${bid.getBidUser().getUserNickname()}</a> <br>
+		><c:out value="${bid.getBidUser().getUserNickname()}"/></a> <br>
 	  </c:if>
       
       <label>Mise à prix :</label>
@@ -96,7 +96,6 @@
 	      
 	      <input type="submit" value="Enchérir" class="" />
 	      </form>
-	      <p class="${empty bm.errors ? 'success' : 'error'}">${bm.result}</p>
       	</c:if>
       </c:when>
       

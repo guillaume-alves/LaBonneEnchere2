@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <header>
@@ -31,19 +32,22 @@
 			>Deconnexion</a>
             
             <c:if test="${!empty sessionScope.sessionUser}">
-                <p class="success">Login : ${sessionScope.sessionUser.userNickname}</p> 
-            	<p class="info">Points : ${sessionScope.sessionUser.userCredit} pts</p> 
+                <p class="success">Login : <c:out value="${sessionScope.sessionUser.userNickname}"/></p> 
+            	<p class="info">Points : <c:out value="${sessionScope.sessionUser.userCredit}"/> pts</p> 
             </c:if>
             
             <c:if test="${!empty sessionScope.userMessage}">
             
             	<details>
             	<summary>Messages</summary>
-            	<p class="info">Message : ${sessionScope.userMessage.result}</p>
-            	<p class="info">Details : ${sessionScope.userMessage.getErrors()}</p>
+            	<p class="info"><c:out value="${sessionScope.userMessage.result}"/></p>
+            	<p class="info"><c:out value="${sessionScope.userMessage.getErrors()}"/></p>
+            	<c:forEach items="${sessionScope.userMessage.errors}" var="message">
+            	<c:out value="${message.value}" />
+            	</c:forEach>
             	<form method="get" action="CleanMessages">
-            		<input class="hide" name="userId" value="${sessionScope.sessionUser.userId}" class="" />
-            		<input type="submit" value="Clean messages and refresh points" class="" />
+            		<input class="hide" name="userId" value="<c:out value="${sessionScope.sessionUser.userId}"/>" class="" />
+            		<input type="submit" value="Clean messages" class="" />
             	</form>
             	</details>
             </c:if>

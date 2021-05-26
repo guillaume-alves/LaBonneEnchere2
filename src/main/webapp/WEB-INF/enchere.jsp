@@ -1,4 +1,4 @@
-<%@ page pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <section class="flex_row_center">
@@ -21,7 +21,7 @@
 						<c:url value="Profile">
 						<c:param name="userId" value="${article.getArticleUserId()}"/>
 						</c:url>"
-					>${article.getArticleUser().getUserNickname()}</a>
+					><c:out value="${article.getArticleUser().getUserNickname()}"/></a>
 				</p>
     		</div>
   		</article>
