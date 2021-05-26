@@ -37,12 +37,15 @@ public class MakeBid extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        // Getting InscriptionManager instance
+    	
+    	// Getting instance of BLL
         BidManager bm = new BidManager(enchereDAO);
         UserManager um = new UserManager(enchereDAO);
         User user = null;
         Bid bid = null;
-		try {
+		
+        // Calling methods of BLL
+        try {
 			bid = bm.insertBid(request);
 			user = um.getUserById(request);
 		} catch (Exception e) {
@@ -50,12 +53,16 @@ public class MakeBid extends HttpServlet {
 			e.printStackTrace();
 		}
 		
+        // Retrieve current session and delete content
 		HttpSession session = request.getSession();
 		session.removeAttribute(ATT_USER_MESSAGE);
 		session.removeAttribute(ATT_SESSION_USER);
+		
+		// Storage of user bean in the session
 		session.setAttribute(ATT_USER_MESSAGE, bm);
 		session.setAttribute(ATT_SESSION_USER, user);
         
+		// Storage of user bean in the request
 		request.setAttribute(ATT_BM, bm);
         request.setAttribute(ATT_BID, bid);
 

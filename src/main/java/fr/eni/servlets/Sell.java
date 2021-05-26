@@ -35,43 +35,49 @@ public class Sell extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-    	  
+    	
+    	// Getting instance of BLL
     	ArticleManager am = new ArticleManager(enchereDAO);
         List<Category> list_categories = null;
-  		try {
+  		
+        // Calling methods of BLL
+        try {
   			list_categories = am.getListCategories();
   		} catch (Exception e) {
   			// TODO Auto-generated catch block
   			e.printStackTrace();
   		}
+        
+        // Redirecting if no errors
   		if (am.getErrors().isEmpty()) {
-  			
   			VUE = VUE_ACCUEIL;
   		}
   		else {
   			VUE = VUE_CREATE_ARTICLE;
   		}
-    
-          request.setAttribute(ATT_AM, am);
-          request.setAttribute(ATT_LIST_CATEGORIES, list_categories);
+  		
+  		// Storage of user bean in the request
+        request.setAttribute(ATT_AM, am);
+        request.setAttribute(ATT_LIST_CATEGORIES, list_categories);
     	this.getServletContext().getRequestDispatcher(VUE_CREATE_ARTICLE).forward(request, response);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
       
-    	
+    	// Getting instance of BLL
         ArticleManager am = new ArticleManager(enchereDAO);
         Article article = null;
         List<Category> list_categories = null;
         
+        // Calling methods of BLL
 		try {
 			article = am.registerArticle(request);
 			list_categories = am.getListCategories();			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	
+		// Retrieve current session, store messages and redirecting if no errors
 		if (am.getErrors().isEmpty()) {
 			HttpSession session = request.getSession();
 			session.removeAttribute(ATT_USER_MESSAGE);
@@ -82,6 +88,7 @@ public class Sell extends HttpServlet {
 			VUE = VUE_CREATE_ARTICLE;
 		}
   
+		// Storage of data in the request
         request.setAttribute(ATT_AM, am);
         request.setAttribute(ATT_ARTICLE, article);
         request.setAttribute(ATT_LIST_CATEGORIES, list_categories);

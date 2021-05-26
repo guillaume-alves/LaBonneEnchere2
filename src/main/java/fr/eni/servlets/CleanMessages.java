@@ -22,18 +22,20 @@ public class CleanMessages extends HttpServlet {
 	private EnchereDAO enchereDAO;
 
     public void init() throws ServletException {
-        //Getting enchereDAO instance d'une instance
+        //Getting enchereDAO instance
         this.enchereDAO = ( (DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY) ).getEnchereDAO();
     }
     
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
+    	// Getting instance of BLL
     	UserManager um = new UserManager(enchereDAO);
 		User user = null;
+		
+		// Calling methods of BLL
 		try {
 			user = um.getUserById(request);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -43,10 +45,11 @@ public class CleanMessages extends HttpServlet {
         // Remove messages in the current session
         session.removeAttribute(ATT_USER_MESSAGE);
         
+        // Storage of user bean in the session
         if (um.getErrors().isEmpty()) {
 			session.setAttribute(ATT_SESSION_USER, user);
 		
-			// Redirect user to another webpage
+		// Redirect user to homepage
         response.sendRedirect(URL_REDIRECTION);
      }
    }

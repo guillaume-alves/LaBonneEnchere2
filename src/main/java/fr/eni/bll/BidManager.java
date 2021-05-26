@@ -11,6 +11,8 @@ import fr.eni.dao.DAOException;
 import fr.eni.dao.EnchereDAO;
 
 public final class BidManager {
+	
+	// Constants defined for each field of the form
     private static final String FIELD_BID_PRICE  				= "bidPrice";
     private static final String FIELD_ARTICLE_END_PRICE  		= "articleEndPrice";
     private static final String FIELD_USER_ID	 				= "userId";
@@ -36,6 +38,7 @@ public final class BidManager {
         this.enchereDAO = enchereDAO;
     }
     
+    // Retrieve a bid by with the article ID in the database
     public Bid getBidByArticleId(HttpServletRequest request) {
     	Integer articleId = Integer.parseInt(getFieldValue(request, FIELD_ARTICLE_ID));
     	Bid bid = new Bid();
@@ -43,15 +46,18 @@ public final class BidManager {
 	    return bid;
     }
 
+    // Insert a bid in the database
 	public Bid insertBid(HttpServletRequest request) throws Exception {
-		User user = new User();
-		User userOld = null;
-		Article article = new Article();
-        Bid bid = new Bid();
+		User user 			= new User();
+		User userOld 		= null;
+		Article article 	= new Article();
+        Bid bid 			= new Bid();
         
-		Integer userCredit 			= Integer.valueOf(getFieldValue(request, FIELD_USER_CREDIT));
-		Integer userId 				= Integer.valueOf(getFieldValue(request, FIELD_USER_ID));
+        // Parsing String form data to Integer
+		Integer userCredit 	= Integer.valueOf(getFieldValue(request, FIELD_USER_CREDIT));
+		Integer userId 		= Integer.valueOf(getFieldValue(request, FIELD_USER_ID));
 		
+		// Checking if a previous bid has been made an retrieve the userId of the bidder
 		if (getFieldValue(request, FIELD_USER_OLD_ID)!=null) {
 			Integer userOldId 		= Integer.valueOf(getFieldValue(request, FIELD_USER_OLD_ID));
 			userOld = enchereDAO.getUserById(userOldId);
@@ -65,13 +71,14 @@ public final class BidManager {
 		Integer articleEndPriceInt 	= null;
 		
 		
-        
         try {
         	bid.setBidUserId(userId);
         	bid.setBidArticleId(articleId);
         	article.setArticleId(articleId);
             processBidPrice(bidPrice, bidPriceInt, articleEndPrice, articleEndPriceInt, bid, article);
             processUserCredit(bidPrice, bidPriceInt, userCredit, user, articleEndPrice, articleEndPriceInt);
+            
+            // if a previous bidder exist, refund his bid
             if (userOld != null) {
             	processUserCredit2(userOld, articleEndPrice, articleEndPriceInt);
             	enchereDAO.updateUserCredit(userOld.getUserId(), userOld);
@@ -93,6 +100,7 @@ public final class BidManager {
         return bid;
     }
     
+	// Methods to call validation methods and insert data in the beans
     private void processBidPrice(String bidPrice, Integer bidPriceInt, String articleEndPrice, Integer articleEndPriceInt, Bid bid, Article article) {
         try {
         	articleEndPriceInt = articleEndPriceValidation(articleEndPrice);
@@ -125,6 +133,7 @@ public final class BidManager {
         userOld.setUserCredit(userOld.getUserCredit()+articleEndPriceInt);
     }
     
+    // Data form validation
     private Integer bidPriceValidation(String bidPrice, Integer articleEndPriceInt) throws FormValidationException {
     if (bidPrice == null) {
             throw new FormValidationException("Champ requis.");
@@ -144,7 +153,7 @@ public final class BidManager {
 	    	Integer articleEndPriceInt = Integer.valueOf(articleEndPrice);
 	    	return articleEndPriceInt;
 	    }
-   }
+    }
 	
 	private Integer userCreditValidation(Integer userCredit, Integer bidPriceInt) throws FormValidationException {
 		if (userCredit == 0 || userCredit<bidPriceInt) {
@@ -153,12 +162,14 @@ public final class BidManager {
 	    	userCredit = userCredit-bidPriceInt;
 	    	return userCredit;
 	    }
-   }
-
+    }
+	
+	// Utility method for setting errors in the list
     private void setError(String field, String message) {
         errors.put(field, message);
     }
 
+    // Utility method for requesting form data	
     private static String getFieldValue (HttpServletRequest request, String field) {
  	   String value = request.getParameter(field);
  	   if (value == null) {value = null;}

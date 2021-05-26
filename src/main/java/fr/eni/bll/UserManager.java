@@ -8,6 +8,8 @@ import fr.eni.dao.EnchereDAO;
 import fr.eni.bo.User;
 
 public final class UserManager {
+	
+	// Constants defined for each field of the form
 	private static final String FIELD_USER_ID	 	 	= "userId";
     private static final String FIELD_USER_NAME		   	= "userName";
     private static final String FIELD_USER_FIRSTNAME	= "userFirstname";
@@ -39,6 +41,7 @@ public final class UserManager {
         this.enchereDAO = enchereDAO;
     }
 
+    // Register a user in the database
 	public User registerUser(HttpServletRequest request) throws Exception {
         String name 		= getFieldValue(request, FIELD_USER_NAME);
         String firstname 	= getFieldValue(request, FIELD_USER_FIRSTNAME);
@@ -84,6 +87,7 @@ public final class UserManager {
         return user;
     }
 	
+	// Connect user
 	public User connectUser(HttpServletRequest request) throws Exception {
 
 		String nickname = getFieldValue(request, FIELD_USER_NICKNAME);
@@ -110,6 +114,7 @@ public final class UserManager {
 		return user;
 	}
 	
+	// Retrieve a user with his ID
 	public User getUserById(HttpServletRequest request) {
 		 User user = new User();	 
 	     Integer userId = Integer.parseInt(getFieldValue(request, FIELD_USER_ID));
@@ -117,11 +122,13 @@ public final class UserManager {
 	     return user;
 	 }
 	
+	// Delete a user with his ID
 	public void deleteUser(HttpServletRequest request) {
 	     Integer userId = Integer.parseInt(getFieldValue(request, FIELD_USER_ID));
 	     enchereDAO.deleteUser(userId);
 	 }
 	
+	// Update a user
 	public User updateUser(HttpServletRequest request) throws Exception {
 		User userOld = getUserById(request);
 		
@@ -167,15 +174,13 @@ public final class UserManager {
         return user;
     }
 	
-	// Integration of data in the bean
-    
+	// Methods to call validation methods and insert data in the beans
 	private void processName(String name, User user) throws Exception {
-	       try {
-	           nameValidation(name);
-	       } catch (FormValidationException e) {
-	           setError(FIELD_USER_NAME, e.getMessage());
-	       }
-	       user.setUserName(name);
+	    try {
+	        nameValidation(name);
+	    } catch (FormValidationException e) {
+	        setError(FIELD_USER_NAME, e.getMessage());
+	    } user.setUserName(name);
 	}
 	
 	private void processConnection(String nickname, String password) {
@@ -186,6 +191,7 @@ public final class UserManager {
         }
     }
 	
+	// Check if nickname already exists and its matching with password
 	private void connectionValidation(String nickname, String password) throws FormValidationException {
 		if (enchereDAO.getUserByNickname(nickname) != null) {
 			if (enchereDAO.getUserByNickname(nickname).getUserPassword().equals(password)) {}
@@ -197,30 +203,27 @@ public final class UserManager {
 	}
 	
 	private void processNickname(String nickname, User user) throws Exception {
-	       try {
-	           nicknameValidation(nickname);
-	       } catch (FormValidationException e) {
-	           setError(FIELD_USER_NICKNAME, e.getMessage());
-	       }
-	       user.setUserNickname(nickname);
+	    try {
+	        nicknameValidation(nickname);
+	    } catch (FormValidationException e) {
+	        setError(FIELD_USER_NICKNAME, e.getMessage());
+	    } user.setUserNickname(nickname);
 	}
 	
 	private void processNicknameConnection(String nickname, User user) throws Exception {
-	       try {
-	           nicknameValidationConnection(nickname);
-	       } catch (FormValidationException e) {
-	           setError(FIELD_USER_NICKNAME, e.getMessage());
-	       }
-	       user.setUserNickname(nickname);
+	    try {
+	        nicknameValidationConnection(nickname);
+	    } catch (FormValidationException e) {
+	        setError(FIELD_USER_NICKNAME, e.getMessage());
+	    } user.setUserNickname(nickname);
 	}
 	
 	private void processFirstname(String firstname, User user) throws Exception {
-	       try {
-	           firstnameValidation(firstname);
-	       } catch (FormValidationException e) {
-	           setError(FIELD_USER_FIRSTNAME, e.getMessage());
-	       }
-	       user.setUserFirstname(firstname);
+	    try {
+	        firstnameValidation(firstname);
+	    } catch (FormValidationException e) {
+	        setError(FIELD_USER_FIRSTNAME, e.getMessage());
+	    } user.setUserFirstname(firstname);
 	}
 
     private void processEmail(String email, User user) {
@@ -228,8 +231,7 @@ public final class UserManager {
     		emailValidation(email);
         } catch (FormValidationException e) {
             setError(FIELD_USER_EMAIL, e.getMessage());
-        }
-        user.setUserEmail(email);
+        } user.setUserEmail(email);
     }
 	
 	private void processPassword(String password, User user) {
@@ -237,8 +239,7 @@ public final class UserManager {
         	passwordValidation(password);
         } catch (FormValidationException e) {
             setError(FIELD_USER_PASSWORD, e.getMessage());
-        }
-        user.setUserPassword(password);
+        } user.setUserPassword(password);
     }
 	
 	private void processConfirmation(String confirmation) {
@@ -255,102 +256,96 @@ public final class UserManager {
         } catch (FormValidationException e) {
     	    setError(FIELD_USER_PASSWORD, e.getMessage());
             setError(FIELD_USER_CONFIRMATION, null);
-        }
-        user.setUserPassword(password);
+        } user.setUserPassword(password);
     }
     
     private void processPhone(String phone, User user) throws Exception {
-	       try {
-	           phoneValidation(phone);
-	       } catch (FormValidationException e) {
-	           setError(FIELD_USER_PHONE, e.getMessage());
-	       }
-	       user.setUserPhone(phone);
+	    try {
+	        phoneValidation(phone);
+	    } catch (FormValidationException e) {
+	        setError(FIELD_USER_PHONE, e.getMessage());
+	    } user.setUserPhone(phone);
 	}
     
     private void processStreet(String street, User user) throws Exception {
-	       try {
-	           streetValidation(street);
-	       } catch (FormValidationException e) {
-	           setError(FIELD_USER_STREET, e.getMessage());
-	       }
-	       user.setUserStreet(street);
+	    try {
+	        streetValidation(street);
+	    } catch (FormValidationException e) {
+	        setError(FIELD_USER_STREET, e.getMessage());
+	    } user.setUserStreet(street);
 	}
     
     private void processPostalCode(String postalCode, User user) throws Exception {
-	       try {
-	           postalCodeValidation(postalCode);
-	       } catch (FormValidationException e) {
-	           setError(FIELD_USER_POSTALCODE, e.getMessage());
-	       }
-	       user.setUserPostalCode(postalCode);
+	    try {
+	        postalCodeValidation(postalCode);
+	    } catch (FormValidationException e) {
+	        setError(FIELD_USER_POSTALCODE, e.getMessage());
+	    } user.setUserPostalCode(postalCode);
 	}
     
     private void processCity(String city, User user) throws Exception {
-	       try {
-	           cityValidation(city);
-	       } catch (FormValidationException e) {
-	           setError(FIELD_USER_CITY, e.getMessage());
-	       }
-	       user.setUserCity(city);
+	    try {
+	        cityValidation(city);
+	    } catch (FormValidationException e) {
+	        setError(FIELD_USER_CITY, e.getMessage());
+	    } user.setUserCity(city);
 	}
     
     private void processCredit(Integer credit, User user) throws Exception {
-	       user.setUserCredit(credit);
+	    user.setUserCredit(credit);
 	}
     
     private void processAdmin(Boolean admin, User user) throws Exception {
-	       user.setUserAdmin(admin);
+	    user.setUserAdmin(admin);
 	}
     
    // Data form validation
+    private void nameValidation(String name) throws FormValidationException {
+        if (name == null) {
+            throw new FormValidationException("Nom requis.");
+        }
+    }
    
-   private void nameValidation(String name) throws FormValidationException {
-       if (name == null) {
-           throw new FormValidationException("Nom requis.");
-       }
-   }
-   
-   private void firstnameValidation(String firstname) throws FormValidationException {
-       if (firstname == null) {
-           throw new FormValidationException("Prénom requis.");
-       }
-   }
+    private void firstnameValidation(String firstname) throws FormValidationException {
+        if (firstname == null) {
+        	throw new FormValidationException("Prénom requis.");
+        }
+    }
    
    private void nicknameValidation(String nickname) throws FormValidationException {
-       if (nickname == null) {
-           throw new FormValidationException("Pseudo requis.");
-       }
-       else if (enchereDAO.getUserByNickname(nickname) != null) {
-    	   throw new FormValidationException("Pseudo déjà utilisé, veuillez en choisir un autre.");
-	   }
-   }
+        if (nickname == null) {
+        	throw new FormValidationException("Pseudo requis.");
+        }
+        else if (enchereDAO.getUserByNickname(nickname) != null) {
+        	throw new FormValidationException("Pseudo déjà utilisé, veuillez en choisir un autre.");
+	    }
+    }
    
    private void nicknameValidationConnection(String nickname) throws FormValidationException {
-       if (nickname == null) {
-           throw new FormValidationException("Pseudo requis.");
-       }
+        if (nickname == null) {
+        	throw new FormValidationException("Pseudo requis.");
+        }
    }
    
-   private void emailValidation(String email) throws FormValidationException {
-	   if (email == null) {
-		   throw new FormValidationException("Email requis.");
-	   }
-	   else if (!email.matches("^[\\w-.]+@([\\w-]+.)+[\\w-]{2,4}$")) {
-		   throw new FormValidationException("Invalid email format.");
-	   }
-	   else if (enchereDAO.getUserByEmail(email) != null) {
+    private void emailValidation(String email) throws FormValidationException {
+	    if (email == null) {
+	    	throw new FormValidationException("Email requis.");
+	    }	
+	    else if (!email.matches("^[\\w-.]+@([\\w-]+.)+[\\w-]{2,4}$")) {
+		    throw new FormValidationException("Invalid email format.");
+	    }
+	    else if (enchereDAO.getUserByEmail(email) != null) {
 	    	   throw new FormValidationException("Email déjà utilisé, veuillez en choisir un autre.");
-		   }
-   }
+		    }
+    }
    
    private void passwordConfirmationValidation(String password, String confirmation) throws FormValidationException {
-	   if (password != null && confirmation != null) {
-		   if (!password.equals(confirmation)) {
+	    if (password != null && confirmation != null) {
+		    if (!password.equals(confirmation)) {
                throw new FormValidationException("Mots de passe differents !");
-		   }
-	   }
-   }
+		    }
+	    }
+    }
    
    private void passwordValidation(String password) throws FormValidationException {
 		if (password == null) {
@@ -358,54 +353,52 @@ public final class UserManager {
 		}
 	}
    
-   private void confirmationValidation(String confirmation) throws FormValidationException {
+    private void confirmationValidation(String confirmation) throws FormValidationException {
 		if (confirmation == null) {
 			throw new FormValidationException("Confirmation requise.");
 		}
 	}
       
-   private void phoneValidation(String phone) throws FormValidationException {
+    private void phoneValidation(String phone) throws FormValidationException {
 	    if (phone == null) {
-	            throw new FormValidationException("Telephone requis.");
+	        throw new FormValidationException("Telephone requis.");
 	    }
-   }
+    }
    
-   private void streetValidation(String street) throws FormValidationException {
+    private void streetValidation(String street) throws FormValidationException {
 	    if (street == null) {
-	            throw new FormValidationException("Rue requise.");
+	        throw new FormValidationException("Rue requise.");
 	    }
-   }
+    }
    
    private void postalCodeValidation(String postalCode) throws FormValidationException {
 	    if (postalCode == null) {
-	            throw new FormValidationException("Code postal requis.");
+	        throw new FormValidationException("Code postal requis.");
 	    }
-   }
+    }
    
-   private void cityValidation(String city) throws FormValidationException {
+    private void cityValidation(String city) throws FormValidationException {
 	    if (city == null) {
-	            throw new FormValidationException("Ville requise.");
+	        throw new FormValidationException("Ville requise.");
 	    }
-   }
+    }
    
-   // UPDATE PART
+    // Validation and others methods to update user data
    
 	private void updateName(String name, User user) throws Exception {
-	       try {
-	           nameValidationUpdate(name);
-	       } catch (FormValidationException e) {
-	           setError(FIELD_USER_NAME, e.getMessage());
-	       }
-	       user.setUserName(name);
+	    try {
+	        nameValidationUpdate(name);
+	    } catch (FormValidationException e) {
+	        setError(FIELD_USER_NAME, e.getMessage());
+	    } user.setUserName(name);
 	}
 	
 	private void updateNickname(String nickname, User user, User userOld) throws Exception {
-	       try {
-	           nicknameValidationUpdate(nickname, userOld);
-	       } catch (FormValidationException e) {
-	           setError(FIELD_USER_NICKNAME, e.getMessage());
-	       }
-	       user.setUserNickname(nickname);
+	    try {
+	        nicknameValidationUpdate(nickname, userOld);
+	    } catch (FormValidationException e) {
+	        setError(FIELD_USER_NICKNAME, e.getMessage());
+	    } user.setUserNickname(nickname);
 	}
 	
 	private void updateFirstname(String firstname, User user) throws Exception {
@@ -413,8 +406,7 @@ public final class UserManager {
 	           firstnameValidationUpdate(firstname);
 	       } catch (FormValidationException e) {
 	           setError(FIELD_USER_FIRSTNAME, e.getMessage());
-	       }
-	       user.setUserFirstname(firstname);
+	       } user.setUserFirstname(firstname);
 	}
 
     private void updateEmail(String email, User user, User userOld) {
@@ -422,8 +414,7 @@ public final class UserManager {
     		emailValidationUpdate(email, userOld);
         } catch (FormValidationException e) {
             setError(FIELD_USER_EMAIL, e.getMessage());
-        }
-        user.setUserEmail(email);
+        } user.setUserEmail(email);
     }
 	
 	private void updatePassword(String password, User user) {
@@ -431,8 +422,7 @@ public final class UserManager {
         	passwordValidationUpdate(password);
         } catch (FormValidationException e) {
             setError(FIELD_USER_PASSWORD, e.getMessage());
-        }
-        user.setUserPassword(password);
+        } user.setUserPassword(password);
     }
 	
 	private void updateConfirmation(String confirmation) {
@@ -449,96 +439,90 @@ public final class UserManager {
         } catch (FormValidationException e) {
     	    setError(FIELD_USER_PASSWORD, e.getMessage());
             setError(FIELD_USER_CONFIRMATION, e.getMessage());
-        }
-        user.setUserPassword(password);
+        } user.setUserPassword(password);
     }
     
     private void updatePhone(String phone, User user) throws Exception {
-	       try {
-	           phoneValidationUpdate(phone);
-	       } catch (FormValidationException e) {
-	           setError(FIELD_USER_PHONE, e.getMessage());
-	       }
-	       user.setUserPhone(phone);
+	    try {
+	        phoneValidationUpdate(phone);
+	    } catch (FormValidationException e) {
+	        setError(FIELD_USER_PHONE, e.getMessage());
+	    } user.setUserPhone(phone);
 	}
     
     private void updateStreet(String street, User user) throws Exception {
-	       try {
-	           streetValidationUpdate(street);
-	       } catch (FormValidationException e) {
-	           setError(FIELD_USER_STREET, e.getMessage());
-	       }
-	       user.setUserStreet(street);
+	    try {
+	        streetValidationUpdate(street);
+	    } catch (FormValidationException e) {
+	        setError(FIELD_USER_STREET, e.getMessage());
+	    } user.setUserStreet(street);
 	}
     
     private void updatePostalCode(String postalCode, User user) throws Exception {
-	       try {
-	           postalCodeValidationUpdate(postalCode);
-	       } catch (FormValidationException e) {
-	           setError(FIELD_USER_POSTALCODE, e.getMessage());
-	       }
-	       user.setUserPostalCode(postalCode);
+	    try {
+	        postalCodeValidationUpdate(postalCode);
+	    } catch (FormValidationException e) {
+	        setError(FIELD_USER_POSTALCODE, e.getMessage());
+	    } user.setUserPostalCode(postalCode);
 	}
     
     private void updateCity(String city, User user) throws Exception {
-	       try {
-	           cityValidationUpdate(city);
-	       } catch (FormValidationException e) {
-	           setError(FIELD_USER_CITY, e.getMessage());
-	       }
-	       user.setUserCity(city);
+	    try {
+	        cityValidationUpdate(city);
+	    } catch (FormValidationException e) {
+	        setError(FIELD_USER_CITY, e.getMessage());
+	    } user.setUserCity(city);
 	}
     
-   // Data form validation
+   // Data form validation linked to update user global method
+    private void nameValidationUpdate(String name) throws FormValidationException {
+        if (name == null) {
+        	throw new FormValidationException("Nom requis.");
+        }
+    }
    
-   private void nameValidationUpdate(String name) throws FormValidationException {
-       if (name == null) {
-           throw new FormValidationException("Nom requis.");
-       }
-   }
+    private void firstnameValidationUpdate(String firstname) throws FormValidationException {
+        if (firstname == null) {
+        	throw new FormValidationException("Prénom requis.");
+        }
+    }
    
-   private void firstnameValidationUpdate(String firstname) throws FormValidationException {
-       if (firstname == null) {
-           throw new FormValidationException("Prénom requis.");
-       }
-   }
+    private void nicknameValidationUpdate(String nickname, User userOld) throws FormValidationException {
+        if (nickname == null) {
+        	throw new FormValidationException("Pseudo requis.");
+        }
+        else if (enchereDAO.getUserByNickname(nickname) != null) {
+        	if (nickname.equals(userOld.getUserNickname())) {}
+    	    else {
+    	    throw new FormValidationException("Pseudo déjà utilisé, veuillez en choisir un autre.");
+    	    }
+        }
+    }
    
-   private void nicknameValidationUpdate(String nickname, User userOld) throws FormValidationException {
-       if (nickname == null) {
-           throw new FormValidationException("Pseudo requis.");
-       }
-       else if (enchereDAO.getUserByNickname(nickname) != null) {
-    	   if (nickname.equals(userOld.getUserNickname())) {}
-    	   else {
-    	   throw new FormValidationException("Pseudo déjà utilisé, veuillez en choisir un autre.");
-    	   }
-       }
-   }
+    private void emailValidationUpdate(String email, User userOld) throws FormValidationException {
+	    if (email == null) {
+		    throw new FormValidationException("Email requis.");
+	    }
+	    else if (!email.matches("^[\\w-.]+@([\\w-]+.)+[\\w-]{2,4}$")) {
+		    throw new FormValidationException("Invalid email format.");
+	    }
+	    else if (enchereDAO.getUserByNickname(email) != null) {
+    	    if (email.equals(userOld.getUserNickname())) {}
+    	    else {
+    	    	throw new FormValidationException("Pseudo déjà utilisé, veuillez en choisir un autre.");
+    	    }
+	    }
+    }
    
-   private void emailValidationUpdate(String email, User userOld) throws FormValidationException {
-	   if (email == null) {
-		   throw new FormValidationException("Email requis.");
-	   }
-	   else if (!email.matches("^[\\w-.]+@([\\w-]+.)+[\\w-]{2,4}$")) {
-		   throw new FormValidationException("Invalid email format.");
-	   }
-	   else if (enchereDAO.getUserByNickname(email) != null) {
-    	   if (email.equals(userOld.getUserNickname())) {}
-    	   else {
-    	   throw new FormValidationException("Pseudo déjà utilisé, veuillez en choisir un autre.");
-    	   }
-	   }
-   }
+    private void passwordConfirmationValidationUpdate(String password, String confirmation) throws FormValidationException {
+	    if (password != null && confirmation != null) {
+		    if (!password.equals(confirmation)) {
+		    	throw new FormValidationException("Mots de passe différents !");
+		    }
+	    }
+    }
    
-   private void passwordConfirmationValidationUpdate(String password, String confirmation) throws FormValidationException {
-	   if (password != null && confirmation != null) {
-		   if (!password.equals(confirmation)) {
-               throw new FormValidationException("Mots de passe différents !");
-		   }
-	   }
-   }
-   
-   private void passwordValidationUpdate(String password) throws FormValidationException {
+    private void passwordValidationUpdate(String password) throws FormValidationException {
 		if (password == null) {
 			throw new FormValidationException("Mot de passe requis.");
 		}
@@ -550,38 +534,40 @@ public final class UserManager {
 		}
 	}
       
-   private void phoneValidationUpdate(String phone) throws FormValidationException {
+    private void phoneValidationUpdate(String phone) throws FormValidationException {
 	    if (phone == null) {
-	            throw new FormValidationException("Telephone requis.");
+	        throw new FormValidationException("Telephone requis.");
 	    }
-   }
+    }
    
-   private void streetValidationUpdate(String street) throws FormValidationException {
+    private void streetValidationUpdate(String street) throws FormValidationException {
 	    if (street == null) {
-	            throw new FormValidationException("Rue requise.");
+	        throw new FormValidationException("Rue requise.");
 	    }
-   }
+    }
    
-   private void postalCodeValidationUpdate(String postalCode) throws FormValidationException {
+    private void postalCodeValidationUpdate(String postalCode) throws FormValidationException {
 	    if (postalCode == null) {
-	            throw new FormValidationException("Code postal requis.");
+	        throw new FormValidationException("Code postal requis.");
 	    }
-   }
+    }
    
-   private void cityValidationUpdate(String city) throws FormValidationException {
+    private void cityValidationUpdate(String city) throws FormValidationException {
 	    if (city == null) {
-	            throw new FormValidationException("Ville requise.");
+	        throw new FormValidationException("Ville requise.");
 	    }
-   }
+    }
     
+    // Utility method for setting errors in the list
     private void setError(String field, String message) {
         errors.put(field, message);
     }
 
+    // Utility method for requesting form data	
     private static String getFieldValue (HttpServletRequest request, String field) {
- 	   String value = request.getParameter(field);
- 	   if (value == null) {value = null;}
- 	   else if (value.trim().compareTo("") == 0) {value = null;}
-       return value;
+ 	    String value = request.getParameter(field);
+ 	    if (value == null) {value = null;}
+ 	    else if (value.trim().compareTo("") == 0) {value = null;}
+        return value;
     }
 }

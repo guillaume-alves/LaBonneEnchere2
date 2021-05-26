@@ -9,7 +9,7 @@ import fr.eni.dao.EnchereDAO;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "Profile", value = "/Profile")
+@WebServlet("/Profile")
 public class Profile extends HttpServlet {
     
 	private static final long serialVersionUID 	= 1L;
@@ -21,14 +21,17 @@ public class Profile extends HttpServlet {
     private EnchereDAO enchereDAO;
 
     public void init() throws ServletException {
-        //Getting enchereDAO instance d'une instance
+        //Getting enchereDAO instance
         this.enchereDAO = ( (DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY) ).getEnchereDAO();
     }
     
 	@Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Getting InscriptionManager instance
+		
+		// Getting instance of BLL
         UserManager um = new UserManager(enchereDAO);
+        
+        // Calling methods of BLL
         User user = um.getUserById(request);
 
         // Storage of user in the request

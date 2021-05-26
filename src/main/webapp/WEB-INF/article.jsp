@@ -25,7 +25,7 @@
     <div>
       <img src="inc/item.png" alt="image_bid">
     </div>
-<%--    <form method="post" action="" class="flex_col_center">--%>
+    
     <div>
       <label>Article :</label>
       <input type="text" value="<c:out value="${article.getArticleName()}"/>" size="20" maxlength="60" readonly="readonly"/><br>
@@ -37,7 +37,7 @@
       <input type="text" value="<c:out value="${article.getArticleCategory().getCategoryName()}"/>" size="20" maxlength="60" readonly="readonly"/><br>
       
       <c:if test="${!empty bid.getBidUser().getUserId()}">
-      <label>Meilleur offre :</label>
+      <label>Meilleure offre :</label>
       <input type="text" value="<c:out value="${article.getArticleEndPrice()}"/> points" size="20" maxlength="60" readonly="readonly"/>
       <span>par</span>
       <a href="
