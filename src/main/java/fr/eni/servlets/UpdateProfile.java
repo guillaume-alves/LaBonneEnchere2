@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import fr.eni.dao.DAOFactory;
 import fr.eni.dao.EnchereDAO;
 import fr.eni.bo.User;
@@ -40,6 +39,7 @@ public class UpdateProfile extends HttpServlet {
         User user = null;
 		try {
 			user = um.updateUser(request);
+			user = um.getUserById(request);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

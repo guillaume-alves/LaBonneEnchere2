@@ -61,7 +61,6 @@
 	<span class="error">${um.errors['userConfirmation']}</span><br>
 
 	<input type="submit" value="Enregister" class="" />
-  	<p class="${empty um.errors ? 'success' : 'error'}">${um.result}</p>
 </form>
 </div>
 
