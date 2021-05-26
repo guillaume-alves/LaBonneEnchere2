@@ -88,6 +88,11 @@ public final class ArticleManager {
         return article;
     }
 	
+	public void deleteArticle(HttpServletRequest request) {
+	     Integer articleId = Integer.parseInt(getFieldValue(request, FIELD_ARTICLE_ID));
+	     enchereDAO.deleteArticle(articleId);
+	 }
+	
 	public List<Article> getListArticles() {
     	list_articles = enchereDAO.getListArticles();
         return list_articles;

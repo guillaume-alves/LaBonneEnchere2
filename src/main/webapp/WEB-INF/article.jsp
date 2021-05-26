@@ -23,7 +23,7 @@
  
   <section class="flex_row_center">
     <div>
-      <img src="../image/pc.jpg" alt="image_bid">
+      <img src="inc/item.png" alt="image_bid">
     </div>
 <%--    <form method="post" action="" class="flex_col_center">--%>
     <div>
@@ -39,7 +39,11 @@
       <label>Meilleur offre :</label>
       <input type="text" value="<c:out value="${article.getArticleEndPrice()}"/> points" size="20" maxlength="60" readonly="readonly"/>
       <span>par</span>
-      <input type="text" value="<c:out value="${bid.getBidUser().getUserNickname()}"/>" size="20" maxlength="60" readonly="readonly"/><br>
+      <a href="
+      	<c:url value="Profile">
+		<c:param name="userId" value="${article.getArticleUserId()}"/>
+		</c:url>"
+		>${article.getArticleUser().getUserNickname()}</a> <br>
       
       <label>Mise à prix :</label>
       <input type="text" value="<c:out value="${article.getArticleStartPrice()}"/> points" size="20" maxlength="60" readonly="readonly"/><br>
@@ -95,7 +99,11 @@
       </c:when>
       
       <c:when test="${article.getArticleUserId() == sessionScope.sessionUser.userId && article.getArticleBidEndDate() >= now}">
-        <input type="submit" value="Modifier"/>
+        <form method="get" action="CancelSell">
+	         <!-- article ID -->
+	        <input class="hide" type="text" name="articleId" value="<c:out value="${article.getArticleId()}"/>" readonly="readonly">
+	        <input type="submit" value="Annuler la vente"/>
+        </form> 
       </c:when>
       
       <c:otherwise>

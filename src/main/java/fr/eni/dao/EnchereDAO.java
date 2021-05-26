@@ -29,12 +29,14 @@ public interface EnchereDAO {
 	
 	void deleteUser(Integer userId) throws DAOException;
 
-	void updateUser(Integer userId, User user);
+	void deleteArticle(Integer articleId) throws DAOException;
 	
-	void updateUserCredit(Integer userId, User user);
+	void updateUser(Integer userId, User user) throws DAOException;;
 	
-	void updateArticleEndPrice(Article article);
+	void updateUserCredit(Integer userId, User user) throws DAOException;;
 	
-	Bid getBidByArticleId(Integer articleId);
+	void updateArticleEndPrice(Article article) throws DAOException;;
+	
+	Bid getBidByArticleId(Integer articleId) throws DAOException;;
 
 }

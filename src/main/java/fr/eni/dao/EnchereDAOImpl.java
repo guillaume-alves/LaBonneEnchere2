@@ -19,6 +19,8 @@ public class EnchereDAOImpl implements EnchereDAO {
     private static final String SQL_SELECT_USER_BY_ID 		 = "SELECT * FROM Users WHERE (user_id=?)";
     private static final String SQL_SELECT_ALL_CATEGORIES 	 = "SELECT * FROM Categories";
     private static final String SQL_DELETE_USER_BY_ID 		 = "DELETE FROM Users WHERE user_Id = ?";
+    private static final String SQL_DELETE_ARTICLE_BY_ID 	 = "DELETE FROM Articles WHERE article_id = ?";
+    private static final String SQL_DELETE_BIDS_BY_ID 	 	 = "DELETE FROM Bids WHERE bid_article_id = ?";
     private static final String SQL_UPDATE_USER 			 = "UPDATE Users SET user_nickname=?, user_name=?, user_firstname=?, user_email=?, user_phone=?, user_street=?, user_postal_code=?, user_city=?, user_password=? WHERE user_id=?";
     private static final String SQL_UPDATE_USER_CREDIT 		 = "UPDATE Users SET user_credit=? WHERE user_id=?";
     private static final String SQL_UPDATE_ARTICLE_END_PRICE = "UPDATE Articles SET article_end_price=? WHERE article_id=?";
@@ -140,6 +142,40 @@ public class EnchereDAOImpl implements EnchereDAO {
         	 silentClosing( preparedStatement, conn );
          }		
 	}
+    
+    @Override
+	public void deleteArticle(Integer articleId) throws DAOException {
+    	 Connection conn = null;
+         PreparedStatement preparedStatement = null;
+
+         try {
+        	 conn = daoFactory.getConnection();
+             preparedStatement = initPreparedStatement(conn, SQL_DELETE_BIDS_BY_ID, articleId);
+             int statut = preparedStatement.executeUpdate();
+             if ( statut == 0 ) {
+                 throw new DAOException("Operation failed, no lign deleted.");
+             }
+         } catch ( SQLException e ) {
+             throw new DAOException( e );
+         } finally {
+        	 silentClosing( preparedStatement, conn );
+         }
+         
+         try {
+        	 conn = daoFactory.getConnection();
+             preparedStatement = initPreparedStatement(conn, SQL_DELETE_ARTICLE_BY_ID, articleId);
+             int statut = preparedStatement.executeUpdate();
+             if ( statut == 0 ) {
+                 throw new DAOException("Operation failed, no lign deleted.");
+             }
+         } catch ( SQLException e ) {
+             throw new DAOException( e );
+         } finally {
+        	 silentClosing( preparedStatement, conn );
+         }
+         
+	}
+    
     // Interface EnchereDAO implementation
     @Override
     public void updateUser(Integer userId, User user) throws DAOException {
