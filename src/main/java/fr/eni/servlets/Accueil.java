@@ -36,11 +36,14 @@ public class Accueil extends HttpServlet {
     }
 
     private void listeArticle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        // Getting InscriptionManager instance
+        
+    	// Getting instance of BLL
         ArticleManager am = new ArticleManager(enchereDAO);
+        
+        // Calling methods of BLL
         List<Article> list_articles = am.getListArticles();
 
-        // Storage of BLL and articles list in the request
+        // Storage of BLL and objects in the request
         request.setAttribute(ATT_AM, am);
         request.setAttribute(ATT_LIST_ARTICLES, list_articles);
         this.getServletContext().getRequestDispatcher(VUE).forward(request, response);

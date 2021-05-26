@@ -113,7 +113,7 @@ public class EnchereDAOImpl implements EnchereDAO {
             conn = daoFactory.getConnection();
             preparedStatement = initPreparedStatement(conn, SQL_INSERT_USER, user.getUserNickname(), user.getUserName(), user.getUserFirstname(), user.getUserEmail(), user.getUserPhone(), user.getUserStreet(), user.getUserPostalCode(), user.getUserCity(), user.getUserPassword(), user.getUserCredit(), user.getUserAdmin());
             int statut = preparedStatement.executeUpdate();
-            // Analysing statut
+            // Analyzing status
             if (statut == 0) {
                 throw new DAOException("Operation failed, no lign added.");
             }

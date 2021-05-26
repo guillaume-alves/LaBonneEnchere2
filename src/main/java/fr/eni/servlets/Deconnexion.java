@@ -15,11 +15,14 @@ public class Deconnexion extends HttpServlet {
 	public static final String URL_REDIRECTION = "/LaBonneEnchere2/Accueil";
 
     public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+    	
     	// Retrieve current session
         HttpSession session = request.getSession();
+        
         // Destroy current session
         session.invalidate();
-        // Redirect user to another webpage
+        
+        // Redirect user to homepage
         response.sendRedirect(URL_REDIRECTION);
     }
 }

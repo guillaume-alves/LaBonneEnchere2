@@ -13,6 +13,8 @@ import fr.eni.bo.Article;
 import fr.eni.bo.Category;
 
 public final class ArticleManager {
+	
+	// Constants defined for each field of the form
 	private static final String FIELD_ARTICLE_ID	 			= "articleId";
 	private static final String FIELD_ARTICLE_NAME  			= "articleName";
     private static final String FIELD_ARTICLE_DESCRIPTION  		= "articleDescription";
@@ -41,7 +43,8 @@ public final class ArticleManager {
     public ArticleManager(EnchereDAO enchereDAO) {
         this.enchereDAO = enchereDAO;
     }
-
+    
+    // Register an article in the database
 	public Article registerArticle(HttpServletRequest request) throws Exception {
         String articleName 			 		= getFieldValue(request, FIELD_ARTICLE_NAME);
         String articleDescription 	 		= getFieldValue(request, FIELD_ARTICLE_DESCRIPTION);
@@ -89,12 +92,11 @@ public final class ArticleManager {
         return article;
     }
 	
-	@SuppressWarnings("unused")
+	// Delete the article of the database by its ID
 	public void deleteArticle(HttpServletRequest request) {
 		
 	     Integer articleId = Integer.parseInt(getFieldValue(request, FIELD_ARTICLE_ID));
 	     if (getFieldValue(request, FIELD_USER_OLD_ID)!=null) {
-	    	 Integer userOldId = Integer.valueOf(getFieldValue(request, FIELD_USER_OLD_ID));
 	    	 enchereDAO.deleteBidsOfArticle(articleId);
 	    	 enchereDAO.deleteArticle(articleId);
 	     } else {
@@ -102,17 +104,20 @@ public final class ArticleManager {
 	     }
 	}
 	
+	// Return the list of the articles
 	public List<Article> getListArticles() {
     	list_articles = enchereDAO.getListArticles();
         return list_articles;
     }
 	
+	// Return the list of the categories
 	public List<Category> getListCategories() {
     	list_categories = enchereDAO.getListCategories();
         return list_categories;
         
     }
 	
+	// Return article requested with its ID
 	public Article getArticleById(HttpServletRequest request) {
 		Article article = new Article();
 	    Integer articleId = Integer.parseInt(getFieldValue(request, FIELD_ARTICLE_ID));
@@ -120,6 +125,7 @@ public final class ArticleManager {
 	    return article;
 	}
 	
+	// Methods to call validation methods and insert data in the beans
 	private void processArticleName(String articleName, Article article) {
 		try {
 			articleNameValidation(articleName);
@@ -238,7 +244,7 @@ public final class ArticleManager {
 	    if (articleUserId == null) {
 	            throw new FormValidationException("Required field.");
 	    }
-  }
+   }
    
    private Integer articleCategoryIdValidation(String articleCategoryId) throws FormValidationException { 
 	   if (articleCategoryId == null) {
@@ -249,10 +255,12 @@ public final class ArticleManager {
 	   }
   }
    
+   // Utility method for setting errors in the list
    private void setError(String field, String message) {
 	   errors.put(field, message);
    }
    
+   // Utility method for requesting form data
    private static String getFieldValue (HttpServletRequest request, String field) {
 	   String value = request.getParameter(field);
 	   if (value == null) {value = null;}

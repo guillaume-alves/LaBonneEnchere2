@@ -20,14 +20,17 @@ public class Suppression extends HttpServlet {
     private EnchereDAO enchereDAO;
 
     public void init() throws ServletException {
-        //Getting enchereDAO instance d'une instance
+        //Getting enchereDAO instance
         this.enchereDAO = ( (DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY) ).getEnchereDAO();
     }
     
 	@Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Getting InscriptionManager instance
+		
+		// Getting instance of BLL
         UserManager um = new UserManager(enchereDAO);
+        
+        // Calling methods of BLL
         um.deleteUser(request);
 		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
     }

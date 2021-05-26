@@ -1,4 +1,4 @@
-<%@ page pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -68,7 +68,7 @@
             >Annuler</a>
         <input type="submit" value="Créer" class="sansLabel" />
         
-        <p class="${empty um.errors ? 'success' : 'error'}">${um.result}</p>
+        <p class="${empty um.errors ? 'success' : 'error'}"><c:out value="${um.result}"/></p>
     </div>
 </form>
 <div class="flex_col_center">

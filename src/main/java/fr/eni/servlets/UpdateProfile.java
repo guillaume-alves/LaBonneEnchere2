@@ -34,18 +34,23 @@ public class UpdateProfile extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        // Getting BLL instance
+        
+    	// Getting BLL instance
         UserManager um = new UserManager(enchereDAO);
         User user = null;
-		try {
+		
+        // Calling methods of BLL
+        try {
 			user = um.updateUser(request);
 			user = um.getUserById(request);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
+        // Retrieve current session
 		HttpSession session = request.getSession();
 
+		// Remove attributes from the session and storage and user and messages
 		if (um.getErrors().isEmpty()) {
 			session.removeAttribute(ATT_SESSION_USER);
 			session.removeAttribute(ATT_USER_MESSAGE);

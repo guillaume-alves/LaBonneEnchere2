@@ -25,8 +25,7 @@ public class DAOFactory {
         this.password = password;
     }
 
-    /* Méthode chargée de récupérer les informations de connexion à la base de
-       données, charger le driver JDBC et retourner une instance de la Factory */
+    // Retrieve connection information from database, load JDBC and return factory instance
     public static DAOFactory getInstance() throws DAOConfigurationException {
         Properties properties = new Properties();
         String url;
@@ -61,12 +60,12 @@ public class DAOFactory {
         return instance;
     }
 
-    /* Méthode chargée de fournir une connexion à la base de données*/
+    // Set connection with database
     	Connection getConnection() throws SQLException {
         return DriverManager.getConnection(url, username, password);
     }
 
-    /* Méthodes de récupération de l'implémentation des différents DAO*/
+    // Retrieve DAO implementation
     public EnchereDAO getEnchereDAO() {
         return new EnchereDAOImpl(this);
     }

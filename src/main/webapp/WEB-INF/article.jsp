@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -25,7 +25,7 @@
     <div>
       <img src="inc/item.png" alt="image_bid">
     </div>
-<%--    <form method="post" action="" class="flex_col_center">--%>
+    
     <div>
       <label>Article :</label>
       <input type="text" value="<c:out value="${article.getArticleName()}"/>" size="20" maxlength="60" readonly="readonly"/><br>
@@ -37,14 +37,14 @@
       <input type="text" value="<c:out value="${article.getArticleCategory().getCategoryName()}"/>" size="20" maxlength="60" readonly="readonly"/><br>
       
       <c:if test="${!empty bid.getBidUser().getUserId()}">
-      <label>Meilleur offre :</label>
+      <label>Meilleure offre :</label>
       <input type="text" value="<c:out value="${article.getArticleEndPrice()}"/> points" size="20" maxlength="60" readonly="readonly"/>
       <span>par</span>
       <a href="
       	<c:url value="Profile">
 		<c:param name="userId" value="${bid.getBidUser().getUserId()}"/>
 		</c:url>"
-		>${bid.getBidUser().getUserNickname()}</a> <br>
+		><c:out value="${bid.getBidUser().getUserNickname()}"/></a> <br>
 	  </c:if>
       
       <label>Mise à prix :</label>
@@ -96,7 +96,6 @@
 	      
 	      <input type="submit" value="Enchérir" class="" />
 	      </form>
-	      <p class="${empty bm.errors ? 'success' : 'error'}">${bm.result}</p>
       	</c:if>
       </c:when>
       

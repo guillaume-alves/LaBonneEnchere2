@@ -26,7 +26,7 @@ public class Connexion extends HttpServlet {
 	private EnchereDAO enchereDAO;
 
 	public void init() throws ServletException {
-        //Getting enchereDAO instance d'une instance
+        //Getting enchereDAO instance
         this.enchereDAO = ( (DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY) ).getEnchereDAO();
     }
 	
@@ -36,17 +36,21 @@ public class Connexion extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// Getting instance of BLL
 		UserManager um = new UserManager(enchereDAO);
 		User user = null;
+		
+		// Calling methods of BLL
 		try {
 			user = um.connectUser(request);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
+		// Retrieve current session
 		HttpSession session = request.getSession();
 
+		// Storage of user bean in the session
 		if (um.getErrors().isEmpty()) {
 			session.setAttribute(ATT_SESSION_USER, user);
 			VUE = VUE_ACCUEIL;
@@ -55,6 +59,7 @@ public class Connexion extends HttpServlet {
 			VUE = VUE_CONNEXION;
 		}
 
+		// Storage of user bean in the request
 		request.setAttribute(ATT_UM, um);
 		request.setAttribute(ATT_USER, user);
 

@@ -31,14 +31,22 @@ public class ArticleProfile extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	
+    	// Getting instance of BLL
     	ArticleManager am = new ArticleManager(enchereDAO);
-        Article article = am.getArticleById(request);
         
+    	// Calling methods of BLL
+    	Article article = am.getArticleById(request);
+        
+    	// Getting instance of BLL
         BidManager bm = new BidManager(enchereDAO);
+        
+        // Calling methods of BLL
         Bid bid = bm.getBidByArticleId(request);
         
         Date now = new Date();
         
+        // Storage of BLL and objects in the request
         request.setAttribute(ATT_AM, am);
         request.setAttribute(ATT_ARTICLE, article);
         request.setAttribute(ATT_AM, bm);

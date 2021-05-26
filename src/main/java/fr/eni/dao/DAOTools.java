@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public final class DAOTools {
 
-    // Defaut constructor because final class
+    // Default constructor because final class
     private DAOTools() {
     }
 

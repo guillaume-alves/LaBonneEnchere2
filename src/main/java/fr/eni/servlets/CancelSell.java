@@ -20,14 +20,17 @@ public class CancelSell extends HttpServlet {
     private EnchereDAO enchereDAO;
 
     public void init() throws ServletException {
-        //Getting enchereDAO instance d'une instance
+        //Getting enchereDAO instance
         this.enchereDAO = ( (DAOFactory) getServletContext().getAttribute(CONF_DAO_FACTORY) ).getEnchereDAO();
     }
     
 	@Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Getting InscriptionManager instance
+		
+		// Getting instance of BLL
         ArticleManager am = new ArticleManager(enchereDAO);
+        
+        // Calling methods of BLL
         am.deleteArticle(request);
 		this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
     }
