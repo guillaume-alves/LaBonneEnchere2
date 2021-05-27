@@ -11,8 +11,8 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/Accueil")
-public class Accueil extends HttpServlet {
+@WebServlet("/AccueilSearch")
+public class AccueilSearch extends HttpServlet {
     
 	private static final long serialVersionUID = 1L;
     public static final String  ATT_AM 				= "am";
@@ -43,7 +43,7 @@ public class Accueil extends HttpServlet {
         ArticleManager am = new ArticleManager(enchereDAO);
         
         // Calling methods of BLL
-        List<Article> list_articles = am.getListArticles();
+        List<Article> list_articles = am.getListArticlesByCategory(request);
         List<Category> list_categories = am.getListCategories();
 
         // Storage of BLL and objects in the request

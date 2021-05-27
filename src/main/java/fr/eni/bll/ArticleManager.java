@@ -110,6 +110,13 @@ public final class ArticleManager {
         return list_articles;
     }
 	
+	// Return the list of the articles
+	public List<Article> getListArticlesByCategory(HttpServletRequest request) {
+		Integer articleCategoryId = Integer.parseInt(getFieldValue(request, FIELD_ARTICLE_CATEGORY_ID));
+    	list_articles = enchereDAO.getListArticlesByCategory(articleCategoryId);
+        return list_articles;
+    }
+	
 	// Return the list of the categories
 	public List<Category> getListCategories() {
     	list_categories = enchereDAO.getListCategories();
