@@ -31,7 +31,7 @@
       <input type="text" value="<c:out value="${article.getArticleName()}"/>" size="20" maxlength="60" readonly="readonly"/><br>
       
       <label>Description :</label>
-      <textarea rows="4" cols="30"><c:out value="${article.getArticleDescription()}"/></textarea><br>
+      <textarea rows="4" cols="30" readonly="readonly"><c:out value="${article.getArticleDescription()}"/></textarea><br>
       
       <label>Catégorie :</label>
       <input type="text" value="<c:out value="${article.getArticleCategory().getCategoryName()}"/>" size="20" maxlength="60" readonly="readonly"/><br>
