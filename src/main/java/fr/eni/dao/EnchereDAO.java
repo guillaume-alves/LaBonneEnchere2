@@ -25,6 +25,8 @@ public interface EnchereDAO {
 
 	List<Article> getListArticles() throws DAOException;
 	
+	List<Article> getListArticlesByCategory(Integer articleCategoryId) throws DAOException;
+	
 	List<Category> getListCategories() throws DAOException;
 	
 	void deleteUser(Integer userId) throws DAOException;
