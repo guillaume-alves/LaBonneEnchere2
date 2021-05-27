@@ -36,11 +36,11 @@ a:link {
 }
 
 a:not(.inscription):hover{
-	color: #0568CD;
+	color: #056ad5;
 	text-decoration: underline;
 }
 a:not(.inscription):visited{
-	color : #0568CD;
+	color : #056ad5;
 }
 
 a.article_title {
@@ -50,7 +50,7 @@ a.article_title {
 
 fieldset {
     padding: 10px;
-    border: 1px #0568CD solid;
+    border: 1px #056ad5 solid;
     margin : 5px;
 }
 
@@ -63,7 +63,7 @@ label {
 
 legend {
     font-weight: bold;
-    color: #0568CD;
+    color: #056ad5;
 }
 
 header {	
@@ -161,27 +161,27 @@ form input.sansLabel {
 }
 
 p.success {
-    color: #090;
+    color: #84b615;
 }
 
 .success {
-    color: #090;
+    color: #84b615;
 }
 
 p.info {
-    color: #6a26c9;
+    color: #84b615;
 }
 
 p.error {
-    color: #900;
+    color: #e5313a;
 }
 
 span.error {
-    color: #900;
+    color: #e5313a;
 }
 
 .required {
-    color: #900;
+    color: #e5313a;
 }
 
 .hide{
