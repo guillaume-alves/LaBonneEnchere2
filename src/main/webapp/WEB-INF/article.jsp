@@ -22,9 +22,32 @@
 </c:choose>
  
   <section class="flex_row_center">
-    <div>
-      <img src="inc/item.png" alt="image_bid">
-    </div>
+    	<c:choose>
+			<c:when test="${article.articleCategoryId == 1}">
+				<div class="img-ench">
+					<img class="image" src="inc/laptop.png" alt="img" width="200" />
+				</div>
+			</c:when>
+			<c:when test="${article.articleCategoryId == 2}">
+				<div class="img-ench">
+					<img class="image" src="inc/electro.png" alt="img" width="200" />
+				</div>
+			</c:when>
+			<c:when test="${article.articleCategoryId == 3}">
+				<div class="img-ench">
+					<img class="image" src="inc/furnitures.png" alt="img" width="200" />
+				</div>
+			</c:when>
+			<c:when test="${article.articleCategoryId == 4}">
+				<div class="img-ench">
+					<img class="image" src="inc/sport.png" alt="img" width="200" />
+				</div>
+			</c:when><c:when test="${article.articleCategoryId == 5}">
+				<div class="img-ench">
+					<img class="image" src="inc/toolbox.png" alt="img" width="200" />
+				</div>
+			</c:when>
+		</c:choose>
     
     <div>
       <label>Article :</label>
