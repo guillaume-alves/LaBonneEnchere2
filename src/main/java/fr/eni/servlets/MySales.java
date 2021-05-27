@@ -17,7 +17,7 @@ public class MySales extends HttpServlet {
     public static final String  ATT_AM 				= "am";
     public static final String  ATT_LIST_ARTICLES 	= "list_articles";
     public static final String  CONF_DAO_FACTORY 	= "daofactory";
-    public static final String  VUE 				= "/WEB-INF/accueil.jsp";
+    public static final String  VUE 				= "/WEB-INF/mysales.jsp";
     private EnchereDAO enchereDAO;
 
     public void init() throws ServletException {
