@@ -22,13 +22,13 @@
 					<input type="text" id="article" name="articleNameSearch" value="" placeholder="Le nom de l'article contient" size="30"/>
 				</div>
 				
-				<label for="selectCategory">Catégorie :</label>
+				<nobr><label for="selectCategory">Catégorie :</label>
 				<select id="selectCategory" name="articleCategoryId" tabindex="30">
 					<option value="noCategory">--Choisissez une catégorie--</option>
 					<c:forEach var="category" items="${list_categories}">
 						<option value="${category.categoryId}"><c:out value="${category.categoryName}" /></option>
 					</c:forEach>
-				</select><br>
+				</select></nobr><br>
 			</div>
 			
 			<div>
