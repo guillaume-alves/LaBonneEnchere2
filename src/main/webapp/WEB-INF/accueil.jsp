@@ -15,75 +15,22 @@
 
 	<h2 class="flex_col_center">Liste des enchères</h2>
 	<section class="search_area">
-		<form method="post" action="AccueilSearch" class="flex_row_center">
+		<form method="post" action="Accueil" class="flex_row_center">
 			<div class="research_zone">
 				<div>
-					<label for="article">Filtres :</label>
-					<input type="text" id="article" name="article" value="" placeholder="Le nom de l'article contient" />
+					<label for="article">Recherche :</label>
+					<input type="text" id="article" name="articleNameSearch" value="" placeholder="Le nom de l'article contient" size="30"/>
 				</div>
 				
 				<label for="selectCategory">Catégorie :</label>
 				<select id="selectCategory" name="articleCategoryId" tabindex="30">
+					<option value="noCategory">--Choisissez une catégorie--</option>
 					<c:forEach var="category" items="${list_categories}">
 						<option value="${category.categoryId}"><c:out value="${category.categoryName}" /></option>
 					</c:forEach>
 				</select><br>
-				
-				<c:if test="${!empty(sessionScope.sessionUser)}">
-					<div class="flex_row_center">
-						<div>
-							<div>
-								<label> <input type="radio" id="achats_radio"
-									name="bid_check" checked> Achats
-								</label>
-							</div>
-							<div id="bid" class="">
-								<div>
-									<label> <input type="checkbox" id="bid_open">
-										enchères ouvertes
-									</label>
-								</div>
-								<div>
-									<label> <input type="checkbox" id="bid_current">
-										enchères en cours
-									</label>
-								</div>
-								<div>
-									<label> <input type="checkbox" id="bid_win">
-										enchères remportées
-									</label>
-								</div>
-							</div>
-						</div>
-
-						<div>
-							<div>
-								<label> <input type="radio" id="ventes_radio"
-									name="bid_check"> Mes ventes
-								</label>
-							</div>
-							<div id="sell" class="disabledButton">
-								<div>
-									<label> <input type="checkbox" id="my_open">
-										mes ventes en cours
-									</label>
-								</div>
-								<div>
-									<label> <input type="checkbox" id="my_not_start">
-										ventes non débutées
-									</label>
-								</div>
-								<div>
-									<label> <input type="checkbox" id="my_end">
-										ventes terminées
-									</label>
-								</div>
-							</div>
-						</div>
-					</div>
-				</c:if>
-
 			</div>
+			
 			<div>
 				<input type="submit" value="Rechercher" />
 			</div>

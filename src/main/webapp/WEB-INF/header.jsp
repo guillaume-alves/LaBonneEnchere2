@@ -17,17 +17,35 @@
 		<c:otherwise>
 			<nav class="nav-bar">
 				<a href="
-            <c:url value="Sell">
-            </c:url>">Vendre
-					un article</a> <a> - </a> <a
-					href="
-			<c:url value="Profile">
-			<c:param name="userId" value="${sessionScope.sessionUser.userId}"/>
-			</c:url>">Mon
-					profil</a> <a> - </a> <a
-					href="
-			<c:url value="Deconnexion">
-			</c:url>">Deconnexion</a>
+            		<c:url value="Sell">
+            		</c:url>">Vendre un article</a>
+            		
+            	<a> - </a>
+            	
+            	<a href="
+					<c:url value="MySales">
+					<c:param name="userId" value="${sessionScope.sessionUser.userId}"/>
+					</c:url>">Mes ventes</a>
+					
+				<a> - </a>
+				
+				<a href="
+					<c:url value="MyPurchases">
+					<c:param name="userId" value="${sessionScope.sessionUser.userId}"/>
+					</c:url>">Mes achats</a>
+					
+				<a> - </a>
+				
+				<a href="
+					<c:url value="Profile">
+					<c:param name="userId" value="${sessionScope.sessionUser.userId}"/>
+					</c:url>">Mon profil</a>
+					
+				<a> - </a>
+				
+				<a href="
+					<c:url value="Deconnexion">
+					</c:url>">Deconnexion</a>
 
 				<c:if test="${!empty sessionScope.sessionUser}">
 					<p class="success">
