@@ -12,15 +12,19 @@ h1{
 	
 }
 
+label{
+	vertical-align: top;
+}
+
 a:link {
   color: #000000;
 }
 
-a:hover{
+a:not(.inscription):hover{
 	color: #0568CD;
 	text-decoration: underline;
 }
-a:visited{
+a:not(.inscription):visited{
 	color : #0568CD;
 }
 
@@ -32,6 +36,7 @@ a.article_title {
 fieldset {
     padding: 10px;
     border: 1px #0568CD solid;
+    margin : 5px;
 }
 
 label {
@@ -54,7 +59,7 @@ header {
     align-items : center;    
 }
 
-input[type=submit] {
+input[type=submit] , .inscription{
     padding:5px 15px; 
     background:#ccc; 
     border:0 none;
@@ -89,10 +94,27 @@ input[type=submit] {
     display: flex;
     flex-direction: column;
 }
+.upper-research{
+	border: 1px #999 solid;
+}
+
+.connexion{
+	display: flex;
+	justify-content: center;	
+	margin : 5px 0 5px 0;
+}
 
 .image {
   height: 120px;
   width: auto;
+}
+
+.img-ench{
+	width : 33%;
+}
+
+.ench {
+	width: 66%;
 }
 
 .article_area{
@@ -101,7 +123,7 @@ input[type=submit] {
     flex-direction: row;
     justify-content: space-around;
     border: 1px black solid;
-    margin-top : 10px;
+    margin-top: 10px;
 }
 
 .disabledButton{

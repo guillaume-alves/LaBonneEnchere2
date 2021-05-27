@@ -5,11 +5,11 @@
 <section class="flex_row_center">
 	<c:forEach var="article" items="${list_articles}">
 		<article class="article_area">
-			<div>
+			<div class="img-ench">
 				<img class="image" src="inc/item.png" alt="pc" width="200" />
 			</div>
 
-			<div>
+			<div class="ench">
 				<a class="article_title"
 					href="
 						<c:url value="ArticleProfile">
