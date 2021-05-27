@@ -4,7 +4,7 @@
 <html>
 <head>
     <link type="text/css" rel="stylesheet" href="inc/form.css">
-    <title>ENI-ENCHERE</title>
+    <title>Accueil</title>
 </head>
 <body>
 
@@ -26,7 +26,7 @@
                           <option value="">Sélectionner une catégorie</option>
                       </select>
                   </div>
-
+				<br>
                  <c:if test="${!empty(sessionScope.sessionUser)}">
                   <div class="flex_row_center">
                       <div>
@@ -88,6 +88,7 @@
                       </div>
                   </div>
                   </c:if>
+                  
               </div>
 			  <div>
               	<input type="submit" value="Rechercher"/>
