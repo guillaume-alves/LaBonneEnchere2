@@ -24,7 +24,9 @@ public final class ArticleManager {
     private static final String FIELD_ARTICLE_END_PRICE  		= "articleEndPrice";
     private static final String FIELD_ARTICLE_USER_ID		  	= "articleUserId";
     private static final String FIELD_ARTICLE_CATEGORY_ID  		= "articleCategoryId";
+    private static final String FIELD_USER_ID	 				= "userId";
     private static final String FIELD_USER_OLD_ID	 			= "userOldId";
+    private static final String FIELD_ARTICLE_NAME_SEARCH		= "articleNameSearch";
     
     private String result;
     private EnchereDAO enchereDAO;
@@ -105,23 +107,42 @@ public final class ArticleManager {
 	}
 	
 	// Return the list of the articles
-	public List<Article> getListArticles() {
-    	list_articles = enchereDAO.getListArticles();
-        return list_articles;
+	public List<Article> getListArticles(HttpServletRequest request) {
+		if
+			// Return articles associated with the search field
+			(getFieldValue(request, FIELD_ARTICLE_NAME_SEARCH)!=null) {
+			String articleNameSearch = "%"+getFieldValue(request, FIELD_ARTICLE_NAME_SEARCH)+"%";
+			list_articles = enchereDAO.getListArticlesByArticleNameSearch(articleNameSearch);
+		} else if
+			// Return articles associated with the selected category
+			(getFieldValue(request, FIELD_ARTICLE_CATEGORY_ID)!= null &&
+			!getFieldValue(request, FIELD_ARTICLE_CATEGORY_ID).equals("noCategory")) {
+			Integer articleCategoryId = Integer.parseInt(getFieldValue(request, FIELD_ARTICLE_CATEGORY_ID));
+	    	list_articles = enchereDAO.getListArticlesByCategory(articleCategoryId);
+		} else {
+			// return all the articles
+			list_articles = enchereDAO.getListArticles();
+		} return list_articles;
     }
 	
-	// Return the list of the articles
-	public List<Article> getListArticlesByCategory(HttpServletRequest request) {
-		Integer articleCategoryId = Integer.parseInt(getFieldValue(request, FIELD_ARTICLE_CATEGORY_ID));
-    	list_articles = enchereDAO.getListArticlesByCategory(articleCategoryId);
-        return list_articles;
+	// Return the list of the sale articles
+	public List<Article> getListSaleArticles(HttpServletRequest request) {
+		Integer userId = Integer.parseInt(getFieldValue(request, FIELD_USER_ID));
+		list_articles = enchereDAO.getListSaleArticles(userId);
+		return list_articles;
+    }
+	
+	// Return the list of the sale articles
+	public List<Article> getListPurchasedArticles(HttpServletRequest request) {
+		Integer userId = Integer.parseInt(getFieldValue(request, FIELD_USER_ID));
+		list_articles = enchereDAO.getListPurchasedArticles(userId);
+		return list_articles;
     }
 	
 	// Return the list of the categories
 	public List<Category> getListCategories() {
     	list_categories = enchereDAO.getListCategories();
         return list_categories;
-        
     }
 	
 	// Return article requested with its ID

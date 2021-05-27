@@ -2,7 +2,6 @@ package fr.eni.servlets;
 
 import fr.eni.bll.ArticleManager;
 import fr.eni.bo.Article;
-import fr.eni.bo.Category;
 import fr.eni.dao.DAOFactory;
 import fr.eni.dao.EnchereDAO;
 import javax.servlet.*;
@@ -11,13 +10,12 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/AccueilSearch")
-public class AccueilSearch extends HttpServlet {
+@WebServlet("/MyPurchases")
+public class MyPurchases extends HttpServlet {
     
 	private static final long serialVersionUID = 1L;
     public static final String  ATT_AM 				= "am";
     public static final String  ATT_LIST_ARTICLES 	= "list_articles";
-    public static final String  ATT_LIST_CATEGORIES = "list_categories";
     public static final String  CONF_DAO_FACTORY 	= "daofactory";
     public static final String  VUE 				= "/WEB-INF/accueil.jsp";
     private EnchereDAO enchereDAO;
@@ -43,13 +41,11 @@ public class AccueilSearch extends HttpServlet {
         ArticleManager am = new ArticleManager(enchereDAO);
         
         // Calling methods of BLL
-        List<Article> list_articles = am.getListArticlesByCategory(request);
-        List<Category> list_categories = am.getListCategories();
+        List<Article> list_articles = am.getListPurchasedArticles(request);
 
         // Storage of BLL and objects in the request
         request.setAttribute(ATT_AM, am);
         request.setAttribute(ATT_LIST_ARTICLES, list_articles);
-        request.setAttribute(ATT_LIST_CATEGORIES, list_categories);
         this.getServletContext().getRequestDispatcher(VUE).forward(request, response);
     }
 }

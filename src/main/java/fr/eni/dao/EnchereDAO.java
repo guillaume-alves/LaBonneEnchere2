@@ -25,7 +25,13 @@ public interface EnchereDAO {
 
 	List<Article> getListArticles() throws DAOException;
 	
+	List<Article> getListSaleArticles(Integer userId) throws DAOException;
+	
+	List<Article> getListPurchasedArticles(Integer userId) throws DAOException;
+	
 	List<Article> getListArticlesByCategory(Integer articleCategoryId) throws DAOException;
+	
+	List<Article> getListArticlesByArticleNameSearch(String articleNameSearch) throws DAOException;
 	
 	List<Category> getListCategories() throws DAOException;
 	
@@ -41,6 +47,6 @@ public interface EnchereDAO {
 	
 	void updateArticleEndPrice(Article article) throws DAOException;;
 	
-	Bid getBidByArticleId(Integer articleId) throws DAOException;;
+	Bid getBidByArticleId(Integer articleId) throws DAOException;
 
 }
