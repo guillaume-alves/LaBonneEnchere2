@@ -24,7 +24,7 @@ a:not(.inscription):hover{
 	color: #0568CD;
 	text-decoration: underline;
 }
-a:visited{
+a:not(.inscription):visited{
 	color : #0568CD;
 }
 
