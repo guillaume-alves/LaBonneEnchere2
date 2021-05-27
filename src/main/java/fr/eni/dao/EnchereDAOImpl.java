@@ -1,4 +1,5 @@
 package fr.eni.dao;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,24 +34,6 @@ public class EnchereDAOImpl implements EnchereDAO {
         this.daoFactory = daoFactory;
     }
     
-    private static User fetchUser(ResultSet resultSet) throws SQLException {
-    	User user = new User();
-        user.setUserId(resultSet.getInt("user_id"));
-        user.setUserNickname(resultSet.getString("user_nickname"));
-        user.setUserName(resultSet.getString("user_name"));
-        user.setUserFirstname(resultSet.getString("user_firstname"));
-        user.setUserEmail(resultSet.getString("user_email"));
-        user.setUserPhone(resultSet.getString("user_phone"));
-        user.setUserStreet(resultSet.getString("user_street"));
-        user.setUserPostalCode(resultSet.getString("user_postal_code"));
-        user.setUserCity(resultSet.getString("user_city"));
-        user.setUserPassword(resultSet.getString("user_password"));
-        user.setUserCredit(resultSet.getInt("user_credit"));
-        user.setUserAdmin(resultSet.getBoolean("user_admin"));
-        
-        return user;
-    }
-    
     // Interface EnchereDAO implementation
     @Override
 	public User getUserByEmail(String email) throws DAOException {
@@ -72,9 +55,7 @@ public class EnchereDAOImpl implements EnchereDAO {
             throw new DAOException(e);
         } finally {
         	silentClosing(resultSet, preparedStatement, conn);
-        }
-
-        return user;
+        } return user;
     }
     
     public User getUserById(Integer userId) throws DAOException {
@@ -95,8 +76,47 @@ public class EnchereDAOImpl implements EnchereDAO {
             throw new DAOException(e);
         } finally {
         	silentClosing(resultSet, preparedStatement, conn);
-        }
+        } return user;
+    }
+    
+    @Override
+	public User getUserByNickname(String nickname) throws DAOException {
+		Connection conn = null;
+	    PreparedStatement preparedStatement = null;
+	    ResultSet resultSet = null;
+	    User user = null;
 
+	    try {
+	      	// Getting connection from factory
+	        conn = daoFactory.getConnection();
+	        preparedStatement = initPreparedStatement(conn, SQL_SELECT_USER_BY_NICKNAME, nickname);
+	        resultSet = preparedStatement.executeQuery();
+	        // Processing from resulSet
+	        if (resultSet.next()) {
+	            user = fetchUser(resultSet);
+	        }
+        } catch (SQLException e) {
+            throw new DAOException(e);
+        } finally {
+        	silentClosing(resultSet, preparedStatement, conn);
+        } return user;
+    }
+    
+    // Method linked to the previous methods getUserById(), getUserByNickname() and getUserByEmail()
+    private static User fetchUser(ResultSet resultSet) throws SQLException {
+    	User user = new User();
+        user.setUserId(resultSet.getInt("user_id"));
+        user.setUserNickname(resultSet.getString("user_nickname"));
+        user.setUserName(resultSet.getString("user_name"));
+        user.setUserFirstname(resultSet.getString("user_firstname"));
+        user.setUserEmail(resultSet.getString("user_email"));
+        user.setUserPhone(resultSet.getString("user_phone"));
+        user.setUserStreet(resultSet.getString("user_street"));
+        user.setUserPostalCode(resultSet.getString("user_postal_code"));
+        user.setUserCity(resultSet.getString("user_city"));
+        user.setUserPassword(resultSet.getString("user_password"));
+        user.setUserCredit(resultSet.getInt("user_credit"));
+        user.setUserAdmin(resultSet.getBoolean("user_admin"));
         return user;
     }
    
@@ -124,6 +144,7 @@ public class EnchereDAOImpl implements EnchereDAO {
         }
     }
     
+    // Interface DAO implementation
     @Override
 	public void deleteUser(Integer userId) throws DAOException {
     	 Connection conn = null;
@@ -131,18 +152,19 @@ public class EnchereDAOImpl implements EnchereDAO {
 
          try {
         	 conn = daoFactory.getConnection();
-             preparedStatement = initPreparedStatement( conn, SQL_DELETE_USER_BY_ID, userId);
+             preparedStatement = initPreparedStatement(conn, SQL_DELETE_USER_BY_ID, userId);
              int statut = preparedStatement.executeUpdate();
-             if ( statut == 0 ) {
+             if (statut == 0) {
                  throw new DAOException("Operation failed, no lign deleted.");
              }
-         } catch ( SQLException e ) {
-             throw new DAOException( e );
+         } catch (SQLException e) {
+             throw new DAOException(e);
          } finally {
-        	 silentClosing( preparedStatement, conn );
+        	 silentClosing(preparedStatement, conn);
          }		
 	}
     
+    // Interface DAO implementation
     @Override
 	public void deleteBidsOfArticle(Integer articleId) throws DAOException {
     	 Connection conn = null;
@@ -162,6 +184,7 @@ public class EnchereDAOImpl implements EnchereDAO {
          }
     }
 
+    // Interface DAO implementation
     @Override
     public void deleteArticle(Integer articleId) throws DAOException {
       	 Connection conn = null;
@@ -193,7 +216,7 @@ public class EnchereDAOImpl implements EnchereDAO {
             conn = daoFactory.getConnection();
             preparedStatement = initPreparedStatement(conn, SQL_UPDATE_USER, user.getUserNickname(), user.getUserName(), user.getUserFirstname(), user.getUserEmail(), user.getUserPhone(), user.getUserStreet(), user.getUserPostalCode(), user.getUserCity(), user.getUserPassword(), userId);
             int statut = preparedStatement.executeUpdate();
-            // Analysing statut
+            // Analyzing status
             if (statut == 0) {
                 throw new DAOException("Operation failed, no lign added." );
             }
@@ -204,7 +227,7 @@ public class EnchereDAOImpl implements EnchereDAO {
         }
     }
     
- // Interface EnchereDAO implementation
+    // Interface EnchereDAO implementation
     @Override
     public void updateUserCredit(Integer userId, User user) throws DAOException {
         Connection conn = null;
@@ -216,7 +239,7 @@ public class EnchereDAOImpl implements EnchereDAO {
             conn = daoFactory.getConnection();
             preparedStatement = initPreparedStatement(conn, SQL_UPDATE_USER_CREDIT, user.getUserCredit(), userId);
             int statut = preparedStatement.executeUpdate();
-            // Analysing statut
+            // Analyzing status
             if (statut == 0) {
                 throw new DAOException("Operation failed, no lign added." );
             }
@@ -238,7 +261,7 @@ public class EnchereDAOImpl implements EnchereDAO {
             conn = daoFactory.getConnection();
             preparedStatement = initPreparedStatement(conn, SQL_INSERT_BID, bid.getBidUserId(), bid.getBidArticleId(), bid.getBidPrice());
             int statut = preparedStatement.executeUpdate();
-            // Analysing statut
+            // Analyzing status
             if (statut == 0) {
                 throw new DAOException("Operation failed, no lign added." );
             }
@@ -260,7 +283,7 @@ public class EnchereDAOImpl implements EnchereDAO {
             conn = daoFactory.getConnection();
             preparedStatement = initPreparedStatement(conn, SQL_INSERT_ARTICLE, article.getArticleName(), article.getArticleDescription(), article.getArticleBidStartDate(), article.getArticleBidEndDate(), article.getArticleStartPrice(), article.getArticleEndPrice(), article.getArticleUserId(), article.getArticleCategoryId());
             int statut = preparedStatement.executeUpdate();
-            // Analysing statut
+            // Analyzing status
             if (statut == 0) {
                 throw new DAOException("Operation failed, no lign added." );
             }
@@ -269,31 +292,6 @@ public class EnchereDAOImpl implements EnchereDAO {
         } finally {
         	silentClosing(preparedStatement, conn);
         }
-    }
-
-	@Override
-	public User getUserByNickname(String nickname) throws DAOException {
-		 Connection conn = null;
-	        PreparedStatement preparedStatement = null;
-	        ResultSet resultSet = null;
-	        User user = null;
-
-	        try {
-	        	// Getting connection from factory
-	            conn = daoFactory.getConnection();
-	            preparedStatement = initPreparedStatement(conn, SQL_SELECT_USER_BY_NICKNAME, nickname);
-	            resultSet = preparedStatement.executeQuery();
-	            // Processing from resulSet
-	            if (resultSet.next()) {
-	                user = fetchUser(resultSet);
-	            }
-	        } catch (SQLException e) {
-	            throw new DAOException(e);
-	        } finally {
-	        	silentClosing(resultSet, preparedStatement, conn);
-	        }
-
-	        return user;
     }
 	
 	@Override
@@ -317,29 +315,28 @@ public class EnchereDAOImpl implements EnchereDAO {
             throw new DAOException(e);
         } finally {
             silentClosing(resultSet, preparedStatement, conn);
-        }
-        return list_articles;
+        } return list_articles;
     }
 	
 	//Method linked to the previous method getListArticles()
-		private static Article fetchArticle(ResultSet resultSet) throws SQLException {
-			Article article = new Article();
-			User user = new User();
-			article.setArticleId(resultSet.getInt("article_id"));
-			article.setArticleName(resultSet.getString("article_name"));
-			article.setArticleDescription(resultSet.getString("article_description"));
-			article.setArticleBidStartDate(resultSet.getDate("article_start_date"));
-			article.setArticleBidEndDate(resultSet.getDate("article_end_date"));
-			article.setArticleStartPrice(resultSet.getInt("article_start_price"));
-			article.setArticleEndPrice(resultSet.getInt("article_end_price"));
-			article.setArticleUserId(resultSet.getInt("article_user_id"));
-			article.setArticleCategoryId(resultSet.getInt("article_category_id"));
-			user.setUserId(resultSet.getInt("user_id"));
-			user.setUserNickname(resultSet.getString("user_nickname"));
-			article.setArticleUser(user);
-	        return article;
-		}
-	
+	private static Article fetchArticle(ResultSet resultSet) throws SQLException {
+		Article article = new Article();
+		User user = new User();
+		article.setArticleId(resultSet.getInt("article_id"));
+		article.setArticleName(resultSet.getString("article_name"));
+		article.setArticleDescription(resultSet.getString("article_description"));
+		article.setArticleBidStartDate(resultSet.getDate("article_start_date"));
+		article.setArticleBidEndDate(resultSet.getDate("article_end_date"));
+		article.setArticleStartPrice(resultSet.getInt("article_start_price"));
+		article.setArticleEndPrice(resultSet.getInt("article_end_price"));
+		article.setArticleUserId(resultSet.getInt("article_user_id"));
+		article.setArticleCategoryId(resultSet.getInt("article_category_id"));
+		user.setUserId(resultSet.getInt("user_id"));
+		user.setUserNickname(resultSet.getString("user_nickname"));
+		article.setArticleUser(user);
+        return article;
+	}
+
 	@Override
 	public List<Category> getListCategories() throws DAOException {
 		Connection conn = null;
@@ -362,9 +359,16 @@ public class EnchereDAOImpl implements EnchereDAO {
             throw new DAOException(e);
         } finally {
             silentClosing(resultSet, preparedStatement, conn);
-        }
-        return list_categories;
+        } return list_categories;
     }
+	
+	//Method linked to the previous method getListCategories()
+	private static Category fetchCategory(ResultSet resultSet) throws SQLException {
+		Category category = new Category();
+		category.setCategoryId(resultSet.getInt("category_id"));
+		category.setCategoryName(resultSet.getString("category_name"));	
+		return category;
+	}
 	
 	@Override
 	public Article getArticleById(Integer articleId) throws DAOException {
@@ -386,8 +390,7 @@ public class EnchereDAOImpl implements EnchereDAO {
             throw new DAOException(e);
         } finally {
             silentClosing(resultSet, preparedStatement, conn);
-        }
-        return article;
+        } return article;
     }
 	
 	//Method linked to the previous method getArticleById()
@@ -414,15 +417,6 @@ public class EnchereDAOImpl implements EnchereDAO {
 		article.setArticleUser(user);
         return article;
 	}
-	
-	//Method linked to the previous method getListCategories()
-	private static Category fetchCategory(ResultSet resultSet) throws SQLException {
-		Category category = new Category();
-		category.setCategoryId(resultSet.getInt("category_id"));
-		category.setCategoryName(resultSet.getString("category_name"));
-			
-		return category;
-	}
 
 	@Override
     public void updateArticleEndPrice(Article article) throws DAOException {
@@ -435,7 +429,7 @@ public class EnchereDAOImpl implements EnchereDAO {
             conn = daoFactory.getConnection();
             preparedStatement = initPreparedStatement(conn, SQL_UPDATE_ARTICLE_END_PRICE, article.getArticleEndPrice(), article.getArticleId());
             int statut = preparedStatement.executeUpdate();
-            // Analysing statut
+            // Analyzing status
             if (statut == 0) {
                 throw new DAOException("Operation failed, no lign added." );
             }
@@ -466,8 +460,7 @@ public class EnchereDAOImpl implements EnchereDAO {
             throw new DAOException(e);
         } finally {
             silentClosing(resultSet, preparedStatement, conn);
-        }
-        return bid;
+        } return bid;
     }
 	
 	//Method linked to the previous method getBidByArticleId()
