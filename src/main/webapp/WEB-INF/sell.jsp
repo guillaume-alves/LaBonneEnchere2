@@ -65,10 +65,12 @@
       <div>
       	<!-- Seller Id -->
 	    <input class="hide" type="text" name="articleUserId" value="<c:out value="${sessionScope.sessionUser.userId}"/>" readonly="readonly"><br>
+        <div class="connexion">
         <input type="submit" value="Enregister" class="" />
+        </div>
       </div>
    </form>
-   	  <a class="flex_col_center" href="
+   	  <a class="inscription" href="
 	  	<c:url value="Accueil">
 		</c:url>"
 		>Annuler</a>

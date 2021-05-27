@@ -54,7 +54,7 @@
   </div>
   <div class="flex_col_center">
 	   <c:if test="${sessionScope.sessionUser.userId == user.userId}">
-	   	<a href="
+	   	<a class="inscription" href="
 			<c:url value="MyProfile">
 			<c:param name="userId" value="${user.userId}"/>
 			</c:url>"
