@@ -7,8 +7,24 @@ h2 {
 	font: bold 18pt verdana, helvetica, sans-serif;
 	}
 
-h1{
+.red{
 	font-family: verdana, helvetica, sans-serif;
+	color: #e5313a;
+}
+
+.blue{
+	font-family: verdana, helvetica, sans-serif;
+	color: #056ad5;
+}
+
+.yellow{
+	font-family: verdana, helvetica, sans-serif;
+	color: #f5a900;
+}
+
+.green{
+	font-family: verdana, helvetica, sans-serif;
+	color: #84b615;
 }
 
 label{
@@ -28,7 +44,7 @@ a:not(.inscription):visited{
 }
 
 a.article_title {
-	font : normal 12pt verdana, helvetica, sans-serif;
+	font : bold 12pt verdana, helvetica, sans-serif;
 	text-transform: uppercase;
 }
 
@@ -104,7 +120,7 @@ input[type=submit] , .inscription{
 }
 
 .image {
-  height: 120px;
+  height: 80px;
   width: auto;
 }
 
@@ -123,6 +139,7 @@ input[type=submit] , .inscription{
     justify-content: space-around;
     border: 1px black solid;
     margin-top: 10px;
+    padding: 10px;
 }
 
 .disabledButton{

@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <header>
-	<a href="${pageContext.request.contextPath}/Accueil" class="title"><h1><%=request.getParameter("title")%></h1></a>
+	<a href="${pageContext.request.contextPath}/Accueil" class="title"><h1><span class="red">E</span><span class="blue">N</span><span class="yellow">I</span><span class="green">-ENCHERES</span></h1></a>
 
 	<c:choose>
 		<c:when test="${empty sessionScope.sessionUser}">
