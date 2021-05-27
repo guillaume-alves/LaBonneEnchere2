@@ -65,9 +65,8 @@
 					maxlength="20" /><br> <span class="error">${um.errors['userConfirmation']}</span><br>
 			</div>
 		</div>
-		<div class="flex_row_center">
-			<a class="inscription"
-				href="
+		<div class="connexion">
+					<a class="inscription" href="
             <c:url value="Accueil"> </c:url>">Annuler</a>
 			<input type="submit" value="Créer" class="sansLabel" />
 
