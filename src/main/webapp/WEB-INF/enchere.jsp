@@ -22,8 +22,8 @@
 						<c:param name="userId" value="${article.getArticleUserId()}"/>
 						</c:url>"
 					>${article.getArticleUser().getUserNickname()}</a>
-				</p>
-    		</div>
+				</p>				
+    		</div>    		
   		</article>
 	</c:forEach>
 </section>

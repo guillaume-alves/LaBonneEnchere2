@@ -29,10 +29,7 @@
     </label><br>
   </div>
   
-  <div class="search">
-    <div class="">
-      <input type="submit" value="Connexion"/>
-    </div>
+  <div class="search">    
     <div class="flex_col_center">
       <div class="search">
         <label>
@@ -40,6 +37,10 @@
           Se souvenir de moi
         </label>
       </div>
+      <div class="">
+      <input type="submit" value="Connexion"/>
+    </div>
+    <br>
       <div>
         <a href="">Mot de passe oublié</a>
       </div>

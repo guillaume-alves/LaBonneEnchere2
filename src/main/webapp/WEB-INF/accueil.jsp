@@ -4,7 +4,7 @@
 <html>
 <head>
     <link type="text/css" rel="stylesheet" href="inc/form.css">
-    <title>Title</title>
+    <title>Accueil</title>
 </head>
 <body>
 
@@ -26,7 +26,7 @@
                           <option value="">Sélectionner une catégorie</option>
                       </select>
                   </div>
-
+				<br>
                  <c:if test="${!empty(sessionScope.sessionUser)}">
                   <div class="flex_row_center">
                       <div>
@@ -88,9 +88,10 @@
                       </div>
                   </div>
                   </c:if>
+                  
               </div>
-
-              <input type="submit" value="Rechercher"/>
+<input type="submit" value="Rechercher"/>
+              
           </form>
       </section>
 

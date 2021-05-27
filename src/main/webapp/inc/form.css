@@ -1,22 +1,32 @@
 body, p, a, legend, label, input {
     font: normal 10pt verdana, helvetica, sans-serif;
+    text-decoration:none; 
 }
 
 h2 {
-	font: normal 16pt verdana, helvetica, sans-serif;
-	color: #0568CD;
+	font: bold 18pt verdana, helvetica, sans-serif;
+	}
+
+h1{
+	font-family: Lucida Bright, Géorgie, serif;
+	
 }
 
 a:link {
-  color: #0568CD;
+  color: #000000;
+}
+
+a:hover{
+	color: #0568CD;
+	text-decoration: underline;
+}
+a:visited{
+	color : #0568CD;
 }
 
 a.article_title {
 	font : normal 12pt verdana, helvetica, sans-serif;
-}
-
-a:visited {
-  color: #0568CD;
+	text-transform: uppercase;
 }
 
 fieldset {
@@ -36,10 +46,12 @@ legend {
     color: #0568CD;
 }
 
-header {
+header {	
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
+    background : #F4F4F4 ;
+    align-items : center;    
 }
 
 input[type=submit] {
@@ -48,6 +60,7 @@ input[type=submit] {
     border:0 none;
     cursor:pointer;
     border-radius: 5px; 
+    
 }
 
 .article_col{
@@ -56,6 +69,7 @@ input[type=submit] {
     justify-content: center;
     flex: 30%;
     max-width: 30%;
+    
 }
 
 .flex_col_center{
@@ -67,7 +81,7 @@ input[type=submit] {
 .flex_row_center{
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-around;
     flex-wrap: wrap;
 }
 
@@ -86,6 +100,7 @@ input[type=submit] {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    border: 1px black solid;
 }
 
 .disabledButton{
