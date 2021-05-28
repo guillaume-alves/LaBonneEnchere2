@@ -45,34 +45,33 @@
 				
 				<a href="
 					<c:url value="Deconnexion">
-					</c:url>">Deconnexion</a>
+					</c:url>">Deconnexion</a><br><br>
 
 				<c:if test="${!empty sessionScope.sessionUser}">
-					<p class="success">
+					<span class="green">
 						Login :
 						<c:out value="${sessionScope.sessionUser.userNickname}" />
-					</p>
-					<p class="info">
+					</span>
+					<a> - </a>
+					<span class="yellow">
 						Points :
 						<c:out value="${sessionScope.sessionUser.userCredit}" />
 						pts
-					</p>
+					</span>
 				</c:if>
 
 				<c:if test="${!empty sessionScope.userMessage}">
 
 					<details>
 						<summary>Messages</summary>
-						<p class="info">
+						<p class="red">
 							<c:out value="${sessionScope.userMessage.result}" />
 						</p>
-						<p class="info">
-							<c:out value="${sessionScope.userMessage.getErrors()}" />
-						</p>
-						<c:forEach items="${sessionScope.userMessage.errors}"
-							var="message">
+						<p class="red">
+						<c:forEach items="${sessionScope.userMessage.errors}" var="message">
 							<c:out value="${message.value}" />
 						</c:forEach>
+						</p>
 						<form method="get" action="CleanMessages">
 							<input class="hide" name="userId"
 								value="<c:out value="${sessionScope.sessionUser.userId}"/>"
